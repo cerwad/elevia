@@ -5,7 +5,7 @@
 
     <meta charset='utf-8'>
     <meta content="width=device-width, initial-scale=1" name="viewport">
-    <!--<base href="https://cwaadd.wixsite.com/website/">-->
+    <!--<base href="${@environment.getProperty('root.url')}/">-->
 
     <link href="img/favelevia192.ico" rel="icon" sizes="192x192">
     <link href="img/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
@@ -20,16 +20,16 @@
     <script src="js/easytimer/timeCounter.js"></script>
     <script src="js/easytimer/easytimer.js"></script>
     <script src="js/calculs.js"></script>
+    <script src="js/balisesHtml.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
         var operation = getRandomMultiplication();
         var timerStarted = false;
         var timer = new Timer();
         var resultList = new Array(operation);
+        var nbErrors = 0;
         $(document).ready(function () {
-
             $(document).on("keypress", "input", function (e) {
-
                 if (e.which == 13 && $('#result').val() > 0) {
                     operation.result = $('#result').val();
                     onClick(resultList);
@@ -38,13 +38,12 @@
             $('#operation').text(operation.toString());
         });
 
-
     </script>
 
     <title>Partie | elevia</title>
-    <link href="https://cwaadd.wixsite.com/website" rel="canonical"/>
+    <link href="${@environment.getProperty('root.url')}" rel="canonical"/>
     <meta content="Partie | elevia" property="og:title"/>
-    <meta content="https://cwaadd.wixsite.com/website" property="og:url"/>
+    <meta content="${@environment.getProperty('root.url')}" property="og:url"/>
     <meta content="elevia" property="og:site_name"/>
     <meta content="website" property="og:type"/>
     <meta content="summary_large_image" name="twitter:card"/>
@@ -53,7 +52,7 @@
 
 <body>
 
-<header>
+<header th:replace="fragments/layout :: header">
     <nav class="navbar navbar-expand-lg navbar-light" style="padding-left: 5%; padding-right: 5%;">
         <div class="container-fluid ">
             <a class="navbar-brand " href="#"><img alt="Cute Elevia"
@@ -108,44 +107,74 @@
     </nav>
 </header>
 <main>
-    <section class="py-2 text-center container ">
-        <div class="row py-lg-5">
-            <div class="col-lg-6 col-md-8 mx-auto">
-                <h1 class="fw-light">Entrainement multiplications</h1>
-                <p class="lead text-muted">Calcule le plus rapidement possible dix multiplications. Ton temps sera
-                    enregistré</p>
-            </div>
-        </div>
-    </section>
-
-    <div class="container p-4 pb-lg-5">
-        <div class="row">
-            <div class="col-md-8">
-                <div class="p-3 align-items-center" id="resultList">
-
+    <div id="partie">
+        <section class="py-2 text-center container ">
+            <div class="row py-lg-5">
+                <div class="col-lg-6 col-md-8 mx-auto">
+                    <h1 class="fw-light">Entrainement multiplications</h1>
+                    <p class="lead text-muted">Calcule le plus rapidement possible dix multiplications. Ton temps
+                        sera
+                        enregistré</p>
                 </div>
             </div>
-            <div class="col-md-4 text-center" id="secondTenths">
-                <div class="values alert" role="alert">00:00:00:0</div>
-            </div>
-        </div>
+        </section>
 
-        <div class="row py-lg-4">
-            <div class="col-lg-6 col-md-8 border_mult mx-auto">
-                Entre la bonne réponse :
-                <div class="form-group row text-center align-items-center justify-content-md-center">
-                    <label class="col-3 col-form-label bigText text-nowrap" for="result" id="operation">3 x
-                        3 =
-                    </label>
-                    <div class="col-3 ">
-                        <input autofocus class="form-control" id="result" placeholder="0" style="max-width: 100px;"
-                               type="number">
+        <div class="container p-4 pb-lg-5">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="p-3 align-items-center" id="resultList">
+
                     </div>
-                    <button class="btn btn-success col-4" onclick="operation.result = $('#result').val(); onClick(resultList);"
-                            type="button">Ok
-                    </button>
                 </div>
+                <div class="col-md-4 text-center" id="secondTenths">
+                    <div class="values alert" role="alert">00:00:00:0</div>
+                </div>
+            </div>
 
+            <div class="row py-lg-4">
+                <div class="col-lg-6 col-md-8 border_mult mx-auto">
+                    Entre la bonne réponse :
+                    <div class="form-group row text-center align-items-center justify-content-md-center">
+                        <label id="operation" for="result" class="col-3 col-form-label bigText text-nowrap">3 x
+                            3 =
+                        </label>
+                        <div class="col-3 ">
+                            <input type="number" class="form-control" id="result" placeholder="0" autofocus
+                                   style="max-width: 100px;">
+                        </div>
+                        <button type="button" class="btn btn-success col-4"
+                                onclick="operation.result = $('#result').val(); onClick(resultList);">Ok</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hidden" id="success">
+        <section class="pt-2 text-center container ">
+            <div class="row py-lg-5">
+                <div class="col-lg-6 col-md-8 mx-auto">
+                    <img class="img-fluid" src="img/mage.png" alt="Cute Elevia" style="max-height: 20vh;" />
+                    <h1 class="fw-light">Bravo !</h1>
+                    <p class="lead text-muted" id="summary">Tu as répondu correctement à 8 opérations sur 10 en 30 secondes</p>
+                </div>
+            </div>
+        </section>
+        <div class="container p-4 pb-lg-5" id="divErrors">
+            <div class="row py-lg-2">
+                <div class="col-lg-6 col-md-8 border_mult mx-auto">
+                    <h2 class="fw-light">Voici la liste de tes erreurs</h2>
+                    <div id="listErrors">
+                        <ul>
+                            <li>3x4=<span style="color: red;">13</span> <span
+                                    style="color: green;">(12)</span>
+                            </li>
+                            <li>5x9=<span style="color: red;">48</span> <span style="color: green;">(45)</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>

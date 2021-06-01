@@ -5,7 +5,7 @@
 
     <meta charset='utf-8'>
     <meta content="width=device-width, initial-scale=1" name="viewport">
-    <!--<base href="https://cwaadd.wixsite.com/website/">-->
+    <!--<base href="${@environment.getProperty('root.url')}/">-->
 
     <link href="img/favelevia192.ico" rel="icon" sizes="192x192">
     <link href="img/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
@@ -17,16 +17,16 @@
 
 
     <title>Home | elevia</title>
-    <!--<link rel="canonical" href="https://cwaadd.wixsite.com/website" />-->
+    <link rel="canonical" href="${@environment.getProperty('root.url')}" />
     <meta content="Home | elevia" property="og:title"/>
-    <!--<meta property="og:url" content="https://cwaadd.wixsite.com/website" />-->
+    <meta property="og:url" content="${@environment.getProperty('root.url')}" />
     <meta content="elevia" property="og:site_name"/>
     <meta content="website" property="og:type"/>
     <meta content="summary_large_image" name="twitter:card"/>
     <meta content="Home | elevia" name="twitter:title"/>
 </head>
 
-<body class=''>
+<body>
 <header>
     <nav class="navbar navbar-expand-lg navbar-light" style="padding-left: 5%; padding-right: 5%;">
         <div class="container-fluid ">

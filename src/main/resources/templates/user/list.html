@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+  <meta charset='utf-8'>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--<base href="${@environment.getProperty('root.url')}/">-->
+
+  <link rel="icon" sizes="192x192" href="img/favelevia192.ico">
+  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="img/favicon.ico" type="image/x-icon" />
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous" />
+  <link href="css/main.css" rel="stylesheet" />
+
+
+
+  <title>Home | Utilisateurs</title>
+  <link rel="canonical" href="${@environment.getProperty('root.url')}" />
+  <meta property="og:title" content="Home | elevia" />
+  <meta property="og:url" content="${@environment.getProperty('root.url')}" />
+  <meta property="og:site_name" content="elevia" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Home | elevia" />
+</head>
+
+<body>
+<div th:switch="${users}">
+  <h2 th:case="null">No users yet!</h2>
+  <div th:case="*">
+    <h2>Users</h2>
+    <table>
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="user : ${users}">
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.email}"></td>
+        <td><a th:href="@{/user/edit/{id}(id=${user.id})}">Edit</a></td>
+        <td><a th:href="@{/user/delete/{id}(id=${user.id})}">Delete</a></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <p><a href="/user/signup">Add a new user</a></p>
+</div>
+  <footer class="footerColor mt-auto py-3 text-center text-lg-start">
+    <!-- Copyright -->
+    <div class="container-fluid text-center p-lg-5">
+      <span>©2021 by Elevia proudly created by tonton dricou</span>
+    </div>
+
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
