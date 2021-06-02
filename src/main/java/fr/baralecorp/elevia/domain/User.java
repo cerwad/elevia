@@ -5,6 +5,7 @@ import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class User {
@@ -21,7 +22,6 @@ public class User {
 
     private String email;
 
-    @NotBlank(message = "Age is mandatory")
     private int age;
 
     @NotBlank(message = "Handle is mandatory")
@@ -29,8 +29,17 @@ public class User {
 
     private String family;
 
-    @OneToMany( targetEntity= Result.class, mappedBy="user" )
+    private String password;
+
+    @ManyToOne
+    @JoinColumn(name="parentId")
+    private User parent;
+
+    @OneToMany( targetEntity= Result.class, mappedBy="user", fetch=FetchType.LAZY )
     private List<Result> results = new ArrayList<>();
+
+    @OneToMany(targetEntity= User.class, mappedBy="parent", fetch=FetchType.LAZY)
+    protected Set<User> children;
 
     // standard constructors / setters / getters / toString
 
@@ -92,6 +101,26 @@ public class User {
 
     public List<Result> getResults(){
         return results;
+    }
+
+    public User getParent() {
+        return parent;
+    }
+
+    public void setParent(User parent) {
+        this.parent = parent;
+    }
+
+    public Set<User> getChildren() {
+        return children;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
