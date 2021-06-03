@@ -1,3 +1,16 @@
+body,html {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+
+}
+main {
+  min-height: 75vh;
+}
+header {
+  min-height: 15vh;
+}
+
 .footerColor {
   background-color: #d4ac4c;
   color: white;
@@ -32,14 +45,9 @@
     font-family: 'Courier New', Courier, monospace;
   }
 
-  
+
   .border_mult {
     border: solid thick rgba(212, 172, 76);
-  }
-
-  .ex4 .parent {
-    display: grid;
-    grid-template-rows: auto 1fr auto;
   }
 
   .hidden {
