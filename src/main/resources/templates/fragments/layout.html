@@ -10,7 +10,7 @@
         <div class="container-fluid ">
             <a class="navbar-brand " href="/index"><img alt="Cute Elevia"
                                                    class="img-fluid"
-                                                   src="img/logo.webp" style="max-width: 100%; height: auto; max-height: 10vh;"></a>
+                                                   src="img/logo.webp" style="max-width: 100%; height: auto; max-height: 12vh;"></a>
             <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
                     class="navbar-toggler"
                     data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse" type="button">
@@ -41,7 +41,7 @@
                     </li>
                     <li class="nav-item">
                         <div>
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="/login" th:inline="text">
                                 <svg data-bbox="0 0 50 50" data-type="shape" fill="#d4ac4c"
                                      height="20"
                                      viewBox="0 0 50 50" width="20" xmlns="http://www.w3.org/2000/svg">
@@ -51,7 +51,7 @@
                                         </path>
                                     </g>
                                 </svg>
-                                Login</a>
+                                Login [[${#httpServletRequest.remoteUser}]]!</a>
                         </div>
                     </li>
                 </ul>
