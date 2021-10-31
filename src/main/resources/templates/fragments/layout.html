@@ -22,7 +22,7 @@
                         <a aria-current="page" class="nav-link active" th:class="${view == 'index'} ? 'nav-link active' : 'nav-link'" href="/index">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:class="${view == 'partie'} ? 'nav-link active' : 'nav-link'" href="/play">Partie rapide</a>
+                        <a class="nav-link" th:class="${view == 'partie'} ? 'nav-link active' : 'nav-link'" href="/partie">Partie rapide</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
@@ -51,7 +51,7 @@
                                         </path>
                                     </g>
                                 </svg>
-                                Login [[${#httpServletRequest.remoteUser}]]!</a>
+                                Login [[${#httpServletRequest.remoteUser}]]</a>
                         </div>
                     </li>
                 </ul>

@@ -5,8 +5,8 @@ import fr.baralecorp.elevia.dao.UserRepository;
 import fr.baralecorp.elevia.domain.ExerciseType;
 import fr.baralecorp.elevia.domain.Result;
 import fr.baralecorp.elevia.domain.User;
-import fr.baralecorp.elevia.security.PasswordHasher;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -25,7 +25,7 @@ public class InitH2DB {
     private ResultRepository resultRepository;
 
     @Autowired
-    private PasswordHasher passwordHasher;
+    private BCryptPasswordEncoder passwordHasher;
 
     public void addUsers(){
         List<User> users = new ArrayList<>();
@@ -36,7 +36,7 @@ public class InitH2DB {
         user1.setFirstName("Amanda");
         user1.setName("LECUYOT");
         user1.setHandle("Amanda");
-        user1.setPassword(passwordHasher.hash("amanda"));
+        user1.setPassword(passwordHasher.encode("amanda"));
         users.add(user1);
 
         User userP1 = new User();
@@ -46,7 +46,7 @@ public class InitH2DB {
         userP1.setFirstName("Audrey");
         userP1.setName("BARALE");
         userP1.setHandle("didy");
-        userP1.setPassword(passwordHasher.hash("audrey"));
+        userP1.setPassword(passwordHasher.encode("audrey"));
         users.add(userP1);
 
         User user2 = new User();
@@ -56,7 +56,7 @@ public class InitH2DB {
         user2.setAge(7);
         user2.setFamily("BARALE");
         user2.setParent(userP1);
-        user2.setPassword(passwordHasher.hash("elea"));
+        user2.setPassword(passwordHasher.encode("elea"));
         users.add(user2);
 
         User userP2 = new User();
@@ -66,7 +66,7 @@ public class InitH2DB {
         userP2.setFirstName("Laura");
         userP2.setName("LECUYOT");
         userP2.setHandle("lolo");
-        userP2.setPassword(passwordHasher.hash("laura"));
+        userP2.setPassword(passwordHasher.encode("laura"));
         users.add(userP2);
 
         User user3 = new User();
@@ -76,7 +76,7 @@ public class InitH2DB {
         user3.setAge(4);
         user3.setFamily("BARALE");
         user3.setParent(userP2);
-        user3.setPassword(passwordHasher.hash("livia"));
+        user3.setPassword(passwordHasher.encode("livia"));
         users.add(user3);
 
         User ced = new User();
@@ -86,7 +86,7 @@ public class InitH2DB {
         ced.setName("BARALE");
         ced.setHandle("dricou");
         ced.setFamily("BARALE");
-        ced.setPassword(passwordHasher.hash("cedric"));
+        ced.setPassword(passwordHasher.encode("cedric"));
         users.add(ced);
 
         userRepository.saveAll(users);

@@ -70,4 +70,6 @@ public class UserController {
         userRepository.delete(user);
         return "redirect:/user/list";
     }
+
+
 }
