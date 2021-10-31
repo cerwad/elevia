@@ -5,6 +5,7 @@ import fr.baralecorp.elevia.dao.UserRepository;
 import fr.baralecorp.elevia.domain.ExerciseType;
 import fr.baralecorp.elevia.domain.Result;
 import fr.baralecorp.elevia.domain.User;
+import fr.baralecorp.elevia.security.PasswordHasher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,13 +16,16 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-public class InitDB {
+public class InitH2DB {
 
     @Autowired
     private UserRepository userRepository;
 
     @Autowired
     private ResultRepository resultRepository;
+
+    @Autowired
+    private PasswordHasher passwordHasher;
 
     public void addUsers(){
         List<User> users = new ArrayList<>();
@@ -32,6 +36,7 @@ public class InitDB {
         user1.setFirstName("Amanda");
         user1.setName("LECUYOT");
         user1.setHandle("Amanda");
+        user1.setPassword(passwordHasher.hash("amanda"));
         users.add(user1);
 
         User userP1 = new User();
@@ -41,6 +46,7 @@ public class InitDB {
         userP1.setFirstName("Audrey");
         userP1.setName("BARALE");
         userP1.setHandle("didy");
+        userP1.setPassword(passwordHasher.hash("audrey"));
         users.add(userP1);
 
         User user2 = new User();
@@ -50,6 +56,7 @@ public class InitDB {
         user2.setAge(7);
         user2.setFamily("BARALE");
         user2.setParent(userP1);
+        user2.setPassword(passwordHasher.hash("elea"));
         users.add(user2);
 
         User userP2 = new User();
@@ -59,6 +66,7 @@ public class InitDB {
         userP2.setFirstName("Laura");
         userP2.setName("LECUYOT");
         userP2.setHandle("lolo");
+        userP2.setPassword(passwordHasher.hash("laura"));
         users.add(userP2);
 
         User user3 = new User();
@@ -68,15 +76,17 @@ public class InitDB {
         user3.setAge(4);
         user3.setFamily("BARALE");
         user3.setParent(userP2);
+        user3.setPassword(passwordHasher.hash("livia"));
         users.add(user3);
 
         User ced = new User();
-        ced.setAge(36);
+        ced.setAge(37);
         ced.setEmail("cedric@gmail.com");
         ced.setFirstName("Cedric");
         ced.setName("BARALE");
         ced.setHandle("dricou");
         ced.setFamily("BARALE");
+        ced.setPassword(passwordHasher.hash("cedric"));
         users.add(ced);
 
         userRepository.saveAll(users);

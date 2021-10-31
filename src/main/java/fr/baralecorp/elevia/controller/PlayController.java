@@ -11,7 +11,7 @@ public class PlayController {
 
     Logger logger = LoggerFactory.getLogger(PlayController.class);
     // In the future add the user so we can adapt the exercise
-    @GetMapping("/play")
+    @GetMapping("/partie")
     public String play(Model model) {
         logger.info("Let's play !");
         String view = "partie";

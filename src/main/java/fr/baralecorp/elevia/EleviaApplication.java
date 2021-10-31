@@ -1,6 +1,6 @@
 package fr.baralecorp.elevia;
 
-import fr.baralecorp.elevia.batch.InitDB;
+import fr.baralecorp.elevia.batch.InitH2DB;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ public class EleviaApplication {
     private String environment;
 
     @Autowired
-    private InitDB initDB;
+    private InitH2DB initH2DB;
 
     public static void main(String[] args) {
         SpringApplication.run(EleviaApplication.class, args);
@@ -29,8 +29,8 @@ public class EleviaApplication {
         logger.info("Application is starting up in environment "+environment);
         if("dev".equals(environment)){
             logger.info("Initializing in Memory DB H2");
-            initDB.addUsers();
-            initDB.addResults();
+            initH2DB.addUsers();
+            initH2DB.addResults();
         }
     }
 }
