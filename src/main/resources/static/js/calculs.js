@@ -89,6 +89,12 @@ function onClick(operations) {
             $('#listErrors').html(genListErrors(operations));
         } else {
             $("#divErrors").addClass("hidden");
+            var timestamp = getMillis(timer.getTimeValues());
+            $.get('/topTen/isin', {time: timestamp}, function(isInTopTen){
+                if(isInTopTen){
+                    console.log('TOPTEN Of the day !!');
+                }
+            });
         }
     } else {
         $('#resultList').html(genHtml(operations));
@@ -115,7 +121,7 @@ function genSummaryText(timer, operationNb){
     let seconds = timer.getTimeValues().seconds;
     let secondTenths = timer.getTimeValues().secondTenths;
     let opestr = nbErrors == 0 ? 'Tu as répondu correctement à toutes les opérations' : `Tu as répondu correctement à ${nbSuccess} opérations sur ${operationNb}`;
-    let summstr = minutes > 0 ? `en ${minutes} minutes ${seconds} secondes et ${secondTenths} centièmes` : ` en ${seconds} secondes et ${secondTenths} centièmes`;
+    let summstr = minutes > 0 ? `en ${minutes} minutes ${seconds} secondes et ${secondTenths} dixièmes` : ` en ${seconds} secondes et ${secondTenths} dixièmes`;
     return opestr + summstr;
 }
 
@@ -143,4 +149,8 @@ function getRandomInt() {
         n = 5;
     }
     return n;
+}
+
+function getMillis(timeValues) {
+    return timeValues.minutes * 60 * 1000 + timeValues.seconds * 1000 + timeValues.secondTenths * 100;
 }

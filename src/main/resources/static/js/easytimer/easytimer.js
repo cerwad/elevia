@@ -5,6 +5,7 @@
 
 /*
  * General functions, variables and constants
+ * https://albert-gonzalez.github.io/easytimer.js/
  */
 const SECOND_TENTHS_PER_SECOND = 10;
 const SECONDS_PER_MINUTE = 60;
