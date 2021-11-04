@@ -40,8 +40,8 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <div>
-                            <a class="nav-link" href="/login" th:inline="text">
+                        <a class="nav-link" href="/login" th:href="@{/login}"  th:inline="text" th:class="${view == 'login'} ? 'nav-link active' : 'nav-link'">
+                            <div>
                                 <svg data-bbox="0 0 50 50" data-type="shape" fill="#d4ac4c"
                                      height="20"
                                      viewBox="0 0 50 50" width="20" xmlns="http://www.w3.org/2000/svg">
@@ -51,8 +51,9 @@
                                         </path>
                                     </g>
                                 </svg>
-                                Login [[${#httpServletRequest.remoteUser}]]</a>
-                        </div>
+                                <span th:text="${player == null ? 'Login' : player.firstName}">Login</span>
+                            </div>
+                        </a>
                     </li>
                 </ul>
 

@@ -39,7 +39,7 @@ public class AuthenticationFailureListener implements
                 if(user.isPresent() && user.get().isAccountNonLocked()) {
                     user.get().setAccountNonLocked(false);
                     userRepository.save(user.get());
-                    logger.info("Login limit reached for "+username+" ip: "+request.getRemoteAddr());
+                    logger.warn("Login limit reached for "+username+" ip: "+request.getRemoteAddr());
                 }
             }
         }

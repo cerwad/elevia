@@ -31,9 +31,6 @@ public class SecurityUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         logger.info("Authenticating "+username);
         String ip = getClientIP();
-        if (loginAttemptService.isBlocked(ip)) {
-            throw new RuntimeException("blocked");
-        }
 
         User user = userRepository.findUserByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not present"));
