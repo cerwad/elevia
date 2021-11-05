@@ -46,12 +46,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.authorizeRequests()
 				.antMatchers("/", "/index").permitAll()
 				.antMatchers("/partie").permitAll()
-				.antMatchers("/scores").permitAll()
-				.antMatchers("/scores/*").permitAll()
+				.antMatchers("/success").permitAll()
+				.antMatchers("/scores/**").permitAll()
 				.antMatchers("/topTen/*").permitAll()
 				.antMatchers("/img/*").permitAll()
 				.antMatchers("/css/*").permitAll()
-				.antMatchers("/js/**/*").permitAll()
+				.antMatchers("/js/**").permitAll()
 				.anyRequest().authenticated()
 				.and()
 			.formLogin()
@@ -59,7 +59,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.permitAll()
 				.and()
 			.logout()
-				.permitAll();
+				.permitAll()
+			.and().csrf().disable()
+		;
 	}
 
 

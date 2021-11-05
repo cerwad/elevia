@@ -15,6 +15,7 @@ public class BasicController {
         if(authentication != null && authenticationFacade.isUserAuthenticated()){
             model.addAttribute("player", authentication.getPrincipal());
             model.addAttribute("email", authentication.getName());
+            model.addAttribute("authenticated", authenticationFacade.isUserAuthenticated());
             logger.info("User connected : "+authentication.getPrincipal()+" "+authentication.getName());
         }
     }

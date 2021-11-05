@@ -1,14 +1,17 @@
 package fr.baralecorp.elevia.service.data;
 
 import java.time.Duration;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 
 /**
  * One top 10 score of the day
  */
 public class DayScore implements Comparable<DayScore>{
     private String name;
-    private String time;
-    private Duration duration;
+    private Integer timeMillis;
+    private LocalTime hour;
+
 
     public String getName() {
         return name;
@@ -18,20 +21,24 @@ public class DayScore implements Comparable<DayScore>{
         this.name = name;
     }
 
-    public String getTime() {
-        return time;
+    public Integer getTimeMillis() {
+        return timeMillis;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setTimeMillis(Integer timeMillis) {
+        this.timeMillis = timeMillis;
     }
 
     public Duration getDuration() {
-        return duration;
+        return timeMillis == null ? Duration.ZERO : Duration.of(timeMillis, ChronoUnit.MILLIS);
     }
 
-    public void setDuration(Duration duration) {
-        this.duration = duration;
+    public LocalTime getHour() {
+        return hour;
+    }
+
+    public void setHour(LocalTime hour) {
+        this.hour = hour;
     }
 
     @Override

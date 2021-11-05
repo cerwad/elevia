@@ -7,13 +7,13 @@
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <!--<base href="${@environment.getProperty('root.url')}/">-->
 
-    <link href="img/favelevia192.ico" rel="icon" sizes="192x192">
-    <link href="img/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
-    <link href="img/favicon.ico" rel="apple-touch-icon" type="image/x-icon"/>
+    <link href="../img/favelevia192.ico" th:href="@{/img/favelevia192.ico}" rel="icon" sizes="192x192">
+    <link href="../img/favicon.ico" th:href="@{/img/favicon.ico}" rel="shortcut icon" type="image/x-icon"/>
+    <link href="../img/favicon.ico" th:href="@{/img/favicon.ico}" rel="apple-touch-icon" type="image/x-icon"/>
 
     <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
           integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" rel="stylesheet"/>
-    <link href="css/main.css" rel="stylesheet"/>
+    <link href="/css/main.css" th:href="@{/css/main.css}" rel="stylesheet"/>
 
     <script src="js/easytimer/leftPadding.js"></script>
     <script src="js/easytimer/eventEmitter.js"></script>
@@ -22,12 +22,19 @@
     <script src="js/calculs.js"></script>
     <script src="js/balisesHtml.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script>
+    <!-- Variable declaration -->
+    <script th:inline="javascript">
         var operation = getRandomMultiplication();
         var timerStarted = false;
         var timer = new Timer();
         var resultList = new Array(operation);
         var nbErrors = 0;
+        var authenticated = [[${authenticated}]];
+        var handle = [[${player == null ? null : player.handle}]];
+    </script>
+    <script>
+
+        // return key listener
         $(document).ready(function () {
             $(document).on("keypress", "input", function (e) {
                 if (e.which == 13 && $('#result').val() > 0) {
@@ -157,6 +164,21 @@
                     <img class="img-fluid" src="img/mage.png" alt="Cute Elevia" style="max-height: 20vh;" />
                     <h1 class="fw-light">Bravo !</h1>
                     <p class="lead text-muted" id="summary">Tu as répondu correctement à 8 opérations sur 10 en 30 secondes</p>
+                    <div id="topTen" class="hidden">
+                        <p class="highlight blue">Ton score fait partie des 10 meilleurs du jour !</p>
+                        <a id="topTenLink" class="link-success" href="/scores/topTenDay">Voir les meilleurs scores du jour </a>
+                        <div id="pseudoForm" class="form-group row text-center align-items-center justify-content-md-center hidden">
+                            <p class="highlight blue">Pour voir apparaitre ton score merci de renseigner ton pseudo</p>
+                            <label id="PseudoLabel" for="pseudo" class="col-3 col-form-label bigText text-nowrap">Pseudo :
+                            </label>
+                            <div class="col-3 ">
+                                <input type="text" class="form-control" id="pseudo" placeholder="Pseudonyme" autofocus
+                                       style="max-width: 100px;">
+                            </div>
+                            <button type="button" class="btn btn-success col-4"
+                                    onclick="sendTopTenScore();">Enregistrer</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

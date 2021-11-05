@@ -22,15 +22,14 @@ public class ResultRestController extends BasicController {
     @PostMapping("/success")
     void success(ExerciseResults exerciseResults, Model model) {
         addPlayerInfoToModel(model, authenticationFacade);
-        logger.info(String.format("Exercise success with %d errors in %d seconds",
-                exerciseResults.getNbErrors(), exerciseResults.getSeconds()));
+        logger.info(String.format("Exercise success with %d errors in %d seconds and %d tenths",
+                exerciseResults.getNbErrors(), exerciseResults.getSeconds(), exerciseResults.getSecondTenths()));
 
         if(authenticationFacade.isUserAuthenticated()){
             // add score in the DB
             logger.info("Adding score in the DB");
-        }
-        if(exerciseResults.getNbErrors() == 0){
 
         }
+
     }
 }

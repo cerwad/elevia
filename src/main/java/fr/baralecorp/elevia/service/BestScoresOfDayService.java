@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,6 +30,9 @@ public class BestScoresOfDayService {
         if(top10List.size() < MAX_ENTRIES){
             return true;
         }
+        if(time.isZero()){
+            return false;
+        }
         DayScore last = top10List.get(MAX_ENTRIES-1);
         return !last.getDuration().minus(time).isNegative();
     }
@@ -36,6 +40,7 @@ public class BestScoresOfDayService {
     public void addNewScore(DayScore newScore){
         checkIfDayChanged();
         if(isTop10(newScore.getDuration())) {
+            newScore.setHour(LocalTime.now());
             top10List.add(newScore);
             top10List = top10List.stream().sorted().collect(Collectors.toList());
             if (top10List.size() > MAX_ENTRIES) {

@@ -89,10 +89,21 @@ function onClick(operations) {
             $('#listErrors').html(genListErrors(operations));
         } else {
             $("#divErrors").addClass("hidden");
-            var timestamp = getMillis(timer.getTimeValues());
-            $.get('/topTen/isin', {time: timestamp}, function(isInTopTen){
+            var timeMillis = getMillis(timer.getTimeValues());
+            $.get('/topTen/isin', {time: timeMillis}, function(isInTopTen){
                 if(isInTopTen){
                     console.log('TOPTEN Of the day !!');
+                    if(authenticated){
+                        var dayScore = {name: handle, timeMillis: timeMillis};
+                        $.ajax({type: 'PUT', url: '/topTen/add', data: JSON.stringify(dayScore), contentType: 'application/json; charset=UTF-8'}).done(function(){
+                            console.log('Added score to Top Ten !');
+                            $('#topTen').removeClass("hidden");
+                        });
+                    } else {
+                        $('#topTen').removeClass("hidden");
+                        $('#topTenLink').addClass("hidden");
+                        $('#pseudoForm').removeClass("hidden");
+                    }
                 }
             });
         }
@@ -102,6 +113,19 @@ function onClick(operations) {
         operations.push(operation);
         $('#operation').text(operation.toString())
         $('#result').val("");
+    }
+}
+
+/** Send top Ten score for not authenticated user */
+function sendTopTenScore(){
+    var handle = $('#pseudo').val();
+    if(handle != null && handle != ''){
+        var dayScore = {name: handle, timeMillis: getMillis(timer.getTimeValues())};
+        $.ajax({type: 'PUT', url: '/topTen/add', data: JSON.stringify(dayScore), contentType: 'application/json; charset=UTF-8'}).done(function(){
+            console.log('Added score to Top Ten !');
+            $('#topTenLink').removeClass("hidden");
+            $('#pseudoForm').addClass("hidden");
+        });
     }
 }
 
