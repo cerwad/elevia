@@ -2,7 +2,7 @@ package fr.baralecorp.elevia.controller.transferObj;
 
 import fr.baralecorp.elevia.domain.ExerciseType;
 
-import java.time.LocalTime;
+import java.time.Duration;
 
 public class ExerciseResults {
     private Integer nbErrors;
@@ -19,8 +19,8 @@ public class ExerciseResults {
         this.secondTenths = secondTenths;
     }
 
-    public LocalTime getTime() {
-        return LocalTime.of(0, minutes, seconds, secondTenths * 100000);
+    public Duration getTime() {
+        return Duration.ofMillis(minutes * 60000 + seconds * 1000 + secondTenths * 100);
     }
 
     public Integer getNbErrors() {

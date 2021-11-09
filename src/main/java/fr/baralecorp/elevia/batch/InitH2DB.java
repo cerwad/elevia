@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -27,7 +27,7 @@ public class InitH2DB {
     @Autowired
     private BCryptPasswordEncoder passwordHasher;
 
-    public void addUsers(){
+    public void addUsers() {
         List<User> users = new ArrayList<>();
         // Init de la BDD H2
         User user1 = new User();
@@ -60,7 +60,7 @@ public class InitH2DB {
         users.add(user2);
 
         User userP2 = new User();
-        userP2.setAge(18);
+        userP2.setAge(33);
         userP2.setEmail("laura@gmail.com");
         userP2.setFamily("BARALE");
         userP2.setFirstName("Laura");
@@ -92,23 +92,23 @@ public class InitH2DB {
         userRepository.saveAll(users);
     }
 
-    public void addResults(){
+    public void addResults() {
         List<Result> results = new ArrayList<>();
         Optional<User> elea = userRepository.findById(3L);
-        if(elea.isPresent()) {
+        if (elea.isPresent()) {
             Result res1 = new Result();
             res1.setDay(LocalDateTime.of(2021, 6, 1, 15, 0));
             res1.setExercise(ExerciseType.MULTIPLICATION);
             res1.setNbErrors((short) 0);
-            res1.setTime(LocalTime.of(0, 0, 35));
+            res1.setTime(Duration.ofMillis(35500));
             res1.setUser(elea.get());
             results.add(res1);
 
             Result res2 = new Result();
             res2.setDay(LocalDateTime.of(2021, 6, 1, 14, 30));
             res2.setExercise(ExerciseType.MULTIPLICATION);
-            res2.setNbErrors((short) 2);
-            res2.setTime(LocalTime.of(0, 0, 40));
+            res2.setNbErrors((short) 0);
+            res2.setTime(Duration.ofSeconds(40));
             res2.setUser(elea.get());
             results.add(res2);
 
@@ -116,29 +116,37 @@ public class InitH2DB {
             res3.setDay(LocalDateTime.of(2021, 5, 30, 14, 30));
             res3.setExercise(ExerciseType.MULTIPLICATION);
             res3.setNbErrors((short) 1);
-            res3.setTime(LocalTime.of(0, 0, 42));
+            res3.setTime(Duration.ofSeconds(42));
             res3.setUser(elea.get());
             results.add(res3);
         }
 
         Optional<User> livia = userRepository.findById(5L);
-        if(livia.isPresent()){
+        if (livia.isPresent()) {
             Result res1 = new Result();
             res1.setDay(LocalDateTime.of(2021, 6, 1, 15, 5));
             res1.setExercise(ExerciseType.MULTIPLICATION);
             res1.setNbErrors((short) 3);
-            res1.setTime(LocalTime.of(0, 1, 10));
+            res1.setTime(Duration.ofSeconds(70));
             res1.setUser(livia.get());
             results.add(res1);
+
+            Result res2 = new Result();
+            res2.setDay(LocalDateTime.of(2021, 6, 1, 15, 10));
+            res2.setExercise(ExerciseType.MULTIPLICATION);
+            res2.setNbErrors((short) 0);
+            res2.setTime(Duration.ofSeconds(65));
+            res2.setUser(livia.get());
+            results.add(res2);
         }
 
         Optional<User> ced = userRepository.findById(6L);
-        if(ced.isPresent()){
+        if (ced.isPresent()) {
             Result res1 = new Result();
             res1.setDay(LocalDateTime.of(2021, 5, 28, 15, 0));
             res1.setExercise(ExerciseType.MULTIPLICATION);
             res1.setNbErrors((short) 0);
-            res1.setTime(LocalTime.of(0, 0, 35));
+            res1.setTime(Duration.ofMillis(35800));
             res1.setUser(ced.get());
             results.add(res1);
 
@@ -146,7 +154,7 @@ public class InitH2DB {
             res2.setDay(LocalDateTime.of(2021, 6, 1, 14, 30));
             res2.setExercise(ExerciseType.MULTIPLICATION);
             res2.setNbErrors((short) 0);
-            res2.setTime(LocalTime.of(0, 0, 40));
+            res2.setTime(Duration.ofSeconds(41));
             res2.setUser(ced.get());
             results.add(res2);
         }

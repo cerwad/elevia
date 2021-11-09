@@ -1,20 +1,22 @@
 package fr.baralecorp.elevia.domain;
 
+import fr.baralecorp.elevia.controller.transferObj.ExerciseResults;
+
 import javax.persistence.*;
+import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.Objects;
 
 @Entity
-public class Result {
+public class Result implements Comparable<Result> {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idResult;
     @ManyToOne
-    @JoinColumn(name="id", nullable=false)
+    @JoinColumn(name = "idUser", nullable = false)
     private User user;
     private LocalDateTime day;
-    private LocalTime time;
+    private Duration time;
     private short nbErrors;
     private ExerciseType exercise;
 
@@ -34,11 +36,11 @@ public class Result {
         this.day = day;
     }
 
-    public LocalTime getTime() {
+    public Duration getTime() {
         return time;
     }
 
-    public void setTime(LocalTime time) {
+    public void setTime(Duration time) {
         this.time = time;
     }
 
@@ -79,11 +81,37 @@ public class Result {
     public String toString() {
         return "Result{" +
                 "idResult=" + idResult +
-                ", user=" + user +
+                ", user=" + user.getHandle() +
                 ", day=" + day +
                 ", time=" + time +
                 ", nbErrors=" + nbErrors +
                 ", exercise=" + exercise +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Result r) {
+        int comp = -1;
+        if (r != null) {
+            comp = this.getExercise().compareTo(r.getExercise());
+            if (comp == 0) {
+                comp = this.getTime().compareTo(r.getTime());
+            }
+        }
+        return comp;
+    }
+
+    public static Result of(ExerciseResults exerciseResults, User user) {
+        Result ret = new Result();
+        ret.setDay(LocalDateTime.now());
+        ret.setExercise(exerciseResults.getExerciseType());
+        ret.setNbErrors((short) 0);
+        if (exerciseResults.getNbErrors() != null) {
+            ret.setNbErrors(exerciseResults.getNbErrors().shortValue());
+        }
+        ret.setTime(exerciseResults.getTime());
+        ret.setUser(user);
+
+        return ret;
     }
 }
