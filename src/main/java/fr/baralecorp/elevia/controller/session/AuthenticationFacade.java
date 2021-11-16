@@ -16,7 +16,7 @@ public class AuthenticationFacade implements IAuthenticationFacade {
     @Override
     public boolean isUserAuthenticated() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return authentication.isAuthenticated() && authentication.getPrincipal() instanceof User;
+        return authentication.isAuthenticated() && authentication.getPrincipal() != null && authentication.getPrincipal() instanceof User;
     }
 
     @Override

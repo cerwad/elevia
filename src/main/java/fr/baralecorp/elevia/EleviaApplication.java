@@ -39,4 +39,5 @@ public class EleviaApplication {
             bestScoresService.generateScoresFromResults();
         }
     }
+
 }

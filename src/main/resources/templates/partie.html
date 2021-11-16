@@ -31,6 +31,8 @@
         var nbErrors = 0;
         var authenticated = [[${authenticated}]];
         var handle = [[${player == null ? null : player.handle}]];
+
+
     </script>
     <script>
 
@@ -44,6 +46,8 @@
             });
             $('#operation').text(operation.toString());
         });
+
+
 
     </script>
 
@@ -59,7 +63,7 @@
 
 <body>
 
-<header th:replace="fragments/layout :: header">
+<header th:replace="fragments/header :: header">
     <nav class="navbar navbar-expand-lg navbar-light" style="padding-left: 5%; padding-right: 5%;">
         <div class="container-fluid ">
             <a class="navbar-brand " href="#"><img alt="Cute Elevia"
@@ -150,7 +154,8 @@
                                    style="max-width: 100px;">
                         </div>
                         <button type="button" class="btn btn-success col-4"
-                                onclick="operation.result = $('#result').val(); onClick(resultList);">Ok</button>
+                                onclick="operation.result = $('#result').val(); onClick(resultList);">Ok
+                        </button>
                     </div>
 
                 </div>
@@ -161,22 +166,27 @@
         <section class="pt-2 text-center container ">
             <div class="row py-lg-5">
                 <div class="col-lg-6 col-md-8 mx-auto">
-                    <img class="img-fluid" src="img/mage.png" alt="Cute Elevia" style="max-height: 20vh;" />
+                    <img class="img-fluid" src="img/mage.png" alt="Cute Elevia" style="max-height: 20vh;"/>
                     <h1 class="fw-light">Bravo !</h1>
-                    <p class="lead text-muted" id="summary">Tu as répondu correctement à 8 opérations sur 10 en 30 secondes</p>
+                    <p class="lead text-muted" id="summary">Tu as répondu correctement à 8 opérations sur 10 en 30
+                        secondes</p>
                     <div id="topTen" class="hidden">
                         <p class="highlight blue">Ton score fait partie des 10 meilleurs du jour !</p>
-                        <a id="topTenLink" class="link-success" href="/scores/topTenDay">Voir les meilleurs scores du jour </a>
-                        <div id="pseudoForm" class="form-group row text-center align-items-center justify-content-md-center hidden">
+                        <a id="topTenLink" class="link-success" href="/scores/topTenDay">Voir les meilleurs scores du
+                            jour </a>
+                        <div id="pseudoForm"
+                             class="form-group row text-center align-items-center justify-content-md-center hidden">
                             <p class="highlight blue">Pour voir apparaitre ton score merci de renseigner ton pseudo</p>
-                            <label id="PseudoLabel" for="pseudo" class="col-3 col-form-label bigText text-nowrap">Pseudo :
+                            <label id="PseudoLabel" for="pseudo" class="col-3 col-form-label bigText text-nowrap">Pseudo
+                                :
                             </label>
                             <div class="col-3 ">
                                 <input type="text" class="form-control" id="pseudo" placeholder="Pseudonyme" autofocus
                                        style="max-width: 100px;">
                             </div>
                             <button type="button" class="btn btn-success col-4"
-                                    onclick="sendTopTenScore();">Enregistrer</button>
+                                    onclick="sendTopTenScore();">Enregistrer
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -204,7 +214,7 @@
 <footer class="footerColor mt-auto py-3 text-center text-lg-start d-none d-sm-none d-md-block">
     <!-- Copyright -->
     <div class="container-fluid text-center p-md-3">
-        <span>©2021 by Elevia proudly created by tonton dricou</span>
+        <span>©2021 by Elevia proudly created by dricou06</span>
     </div>
 
 </footer>

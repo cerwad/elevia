@@ -29,18 +29,18 @@ public class SecurityUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        logger.info("Authenticating "+username);
+        logger.info("Authenticating " + username);
         String ip = getClientIP();
 
-        User user = userRepository.findUserByEmail(username)
+        User user = userRepository.findUserByHandle(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not present"));
-        logger.info("Found user "+username);
+        logger.info("Found user " + username);
         return user;
     }
 
     private String getClientIP() {
         String xfHeader = request.getHeader("X-Forwarded-For");
-        if (xfHeader == null){
+        if (xfHeader == null) {
             return request.getRemoteAddr();
         }
         return xfHeader.split(",")[0];

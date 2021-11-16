@@ -1,10 +1,13 @@
 package fr.baralecorp.elevia.domain;
 
+import fr.baralecorp.elevia.service.util.DateUtil;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDate;
 import java.util.*;
 
 @Entity
@@ -20,11 +23,14 @@ public class User implements UserDetails {
     @NotBlank(message = "Name is mandatory")
     private String name;
 
+    @Email
+    @Column(unique = true)
     private String email;
 
-    private int age;
+    private LocalDate birthDate;
 
     @NotBlank(message = "Handle is mandatory")
+    @Column(unique = true)
     private String handle;
 
     private String family;
@@ -34,13 +40,13 @@ public class User implements UserDetails {
     private Boolean accountNonLocked = true;
 
     @ManyToOne
-    @JoinColumn(name="parentId")
+    @JoinColumn(name = "parentId")
     private User parent;
 
-    @OneToMany( targetEntity= Result.class, mappedBy="user", fetch=FetchType.LAZY )
+    @OneToMany(targetEntity = Result.class, mappedBy = "user", fetch = FetchType.LAZY)
     private List<Result> results = new ArrayList<>();
 
-    @OneToMany(targetEntity= User.class, mappedBy="parent", fetch=FetchType.LAZY)
+    @OneToMany(targetEntity = User.class, mappedBy = "parent", fetch = FetchType.LAZY)
     protected Set<User> children;
 
     // standard constructors / setters / getters / toString
@@ -78,11 +84,7 @@ public class User implements UserDetails {
     }
 
     public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
+        return DateUtil.calcAge(birthDate);
     }
 
     public String getHandle() {
@@ -101,7 +103,7 @@ public class User implements UserDetails {
         this.family = family;
     }
 
-    public List<Result> getResults(){
+    public List<Result> getResults() {
         return results;
     }
 
@@ -136,7 +138,7 @@ public class User implements UserDetails {
         return true;
     }
 
-    public void setAccountNonLocked(boolean accountNonLocked){
+    public void setAccountNonLocked(boolean accountNonLocked) {
         this.accountNonLocked = accountNonLocked;
     }
 
@@ -159,6 +161,14 @@ public class User implements UserDetails {
         this.password = password;
     }
 
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -179,7 +189,7 @@ public class User implements UserDetails {
                 ", firstName='" + firstName + '\'' +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", age=" + age +
+                ", birthDate=" + birthDate +
                 ", handle='" + handle + '\'' +
                 ", family='" + family + '\'' +
                 '}';

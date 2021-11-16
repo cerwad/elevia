@@ -27,7 +27,7 @@
 </head>
 
 <body>
-<header th:replace="fragments/layout :: header">
+<header th:replace="fragments/header :: header">
     <nav class="navbar navbar-expand-lg navbar-light" style="padding-left: 5%; padding-right: 5%;">
         <div class="container-fluid ">
             <a class="navbar-brand " href="#">
@@ -87,7 +87,7 @@
     <section class="py-2 text-center container ">
         <div class="row py-lg-2">
             <div class="col-lg-6 col-md-8 mx-auto">
-                <h1 class="fw-light">Apprends les Maths avec Elevia</h1>
+                <h1 class="fw-light">Apprends les Maths avec Elevia [[${player != null ? player.id : ''}]]</h1>
             </div>
         </div>
     </section>
@@ -178,7 +178,7 @@
 <footer class="footerColor mt-auto py-3 text-center text-lg-start">
     <!-- Copyright -->
     <div class="container-fluid text-center p-md-3">
-        <span>©2021 by Elevia proudly created by tonton dricou</span>
+        <span>©2021 by Elevia proudly created by dricou06</span>
     </div>
 
 </footer>

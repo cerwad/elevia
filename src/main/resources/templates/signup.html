@@ -94,58 +94,83 @@
             </div>
         </section>
 
-        <form class="container px-4 needs-validation" action="#" method="post"
-              th:action="@{/user/update/{id}(id=${player.id})}"
+        <form class="container px-4 needs-validation" action="#" method="post" th:action="@{/adduser}"
               th:object="${user}">
             <div class="row gx-5 gy-3 py-3">
                 <div class="col">
                     <label class="form-label" for="firstName">Prénom</label>
-                    <input id="firstName" class="form-control" placeholder="Prénom" th:field="*{firstName}" type="text"
-                           readonly>
-                    <span th:errors="*{firstName}" th:if="${#fields.hasErrors('firstName')}"></span>
+                    <input id="firstName" class="form-control"
+                           th:errorclass="is-invalid"
+                           placeholder="Prénom"
+                           aria-describedby="inputGroupPrepend3 firstNameFeedback"
+                           th:field="*{firstName}" type="text"
+                           required>
+                    <span id="firstNameFeedback" class="invalid-feedback" th:errors="*{firstName}"
+                          th:if="${#fields.hasErrors('firstName')}"></span>
                 </div>
                 <div class="col">
                     <label class="form-label" for="name">Nom</label>
-                    <input id="name" class="form-control" placeholder="Nom" th:field="*{name}" type="text" readonly>
-                    <span th:errors="*{name}" th:if="${#fields.hasErrors('name')}"></span>
+                    <input id="name" class="form-control"
+                           th:errorclass="is-invalid" placeholder="Nom"
+                           th:field="*{name}" type="text" aria-describedby="inputGroupPrepend3 nameFeedback" required>
+                    <span id="nameFeedback" class="invalid-feedback" th:errors="*{name}"
+                          th:if="${#fields.hasErrors('name')}"></span>
                 </div>
                 <div class="col">
                     <label class="form-label" for="birthdate">Date de naissance</label>
-                    <input id="birthdate" class="form-control" placeholder="Format dd/mm/yyyy" th:field="*{birthDate}"
-                           type="text">
-                    <span th:errors="*{birthDate}" th:if="${#fields.hasErrors('birthDate')}"></span>
+                    <input id="birthdate" class="form-control"
+                           th:errorclass="is-invalid"
+                           placeholder="Format dd/mm/yyyy" th:field="*{birthDate}"
+                           aria-describedby="inputGroupPrepend3 birthDateFeedback"
+                           type="date" required>
+                    <span id="birthDateFeedback" class="invalid-feedback" th:errors="*{birthDate}"
+                          th:if="${#fields.hasErrors('birthDate')}"></span>
                 </div>
             </div>
             <div class="row gx-5 gy-3 py-3">
                 <div class="col">
                     <label class="form-label" for="email">Email</label>
-                    <input id="email" class="form-control" placeholder="Email" th:field="*{email}" type="text">
-                    <span th:errors="*{email}" th:if="${#fields.hasErrors('email')}"></span>
+                    <input id="email" class="form-control"
+                           th:errorclass="is-invalid" placeholder="Email"
+                           th:field="*{email}" aria-describedby="inputGroupPrepend3 emailFeedback" type="text">
+                    <span id="emailFeedback" class="invalid-feedback" th:errors="*{email}"
+                          th:if="${#fields.hasErrors('email')}"></span>
                 </div>
                 <div class="col">
                     <label class="form-label" for="handle">Pseudo</label>
-                    <input id="handle" class="form-control" placeholder="Pseudo" th:field="*{handle}" type="text">
-                    <span th:errors="*{handle}" th:if="${#fields.hasErrors('handle')}"></span>
+                    <input id="handle" class="form-control"
+                           th:errorclass="is-invalid" placeholder="Pseudo"
+                           th:field="*{handle}" type="text" aria-describedby="inputGroupPrepend3 handleFeedback"
+                           required>
+                    <span id="handleFeedback" class="invalid-feedback" th:errors="*{handle}"
+                          th:if="${#fields.hasErrors('handle')}"></span>
                 </div>
             </div>
             <div class="row gx-5 gy-3 py-3">
                 <div class="col">
                     <label class="form-label" for="password">Mot de passe</label>
-                    <input id="password" class="form-control" placeholder="Mot de passe" th:field="*{password}"
-                           type="text">
-                    <span th:errors="*{password}" th:if="${#fields.hasErrors('password')}"></span>
+                    <input id="password" class="form-control"
+                           th:errorclass="is-invalid"
+                           placeholder="Mot de passe"
+                           th:field="*{password}" aria-describedby="inputGroupPrepend3 passwordFeedback"
+                           type="text" required>
+                    <span id="passwordFeedback" class="invalid-feedback" th:errors="*{password}"
+                          th:if="${#fields.hasErrors('password')}"></span>
                 </div>
                 <div class="col">
                     <label class="form-label" for="password2">Confirmation du mot de passe</label>
                     <input id="password2" class="form-control" placeholder="Mot de passe" type="text">
-                    <span class="hidden error">Les deux mots de passe doivent être identiques</span>
+                    <span class="hidden invalid-feedback">Les deux mots de passe doivent être identiques</span>
                 </div>
             </div>
             <div class="row gx-5 gy-3 py-3">
                 <div class="col">
                     <label class="form-label" for="family">Famille</label>
-                    <input id="family" class="form-control" placeholder="Famille" th:field="*{family}" type="text">
-                    <span th:errors="*{family}" th:if="${#fields.hasErrors('family')}"></span>
+                    <input id="family" class="form-control"
+                           th:errorclass="is-invalid" placeholder="Famille"
+                           th:field="*{family}" aria-describedby="inputGroupPrepend3 familyFeedback" type="text">
+                    <span id="familyFeedback" class="invalid-feedback" th:errors="*{family}"
+                          th:if="${#fields.hasErrors('family')}"></span>
                 </div>
                 <input class="col btn btn-primary btn-lg mx-auto" type="submit" value="Créer">
             </div>
@@ -156,7 +181,7 @@
 <footer class="footerColor mt-auto py-3 text-center text-lg-start d-none d-sm-none d-md-block">
     <!-- Copyright -->
     <div class="container-fluid text-center p-md-3">
-        <span>©2021 by Elevia proudly created by tonton dricou</span>
+        <span>©2021 by Elevia proudly created by dricou06</span>
     </div>
 
 </footer>

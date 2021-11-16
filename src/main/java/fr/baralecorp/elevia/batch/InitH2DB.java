@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ public class InitH2DB {
         List<User> users = new ArrayList<>();
         // Init de la BDD H2
         User user1 = new User();
-        user1.setAge(18);
+        user1.setBirthDate(LocalDate.of(1990, 5, 23));
         user1.setEmail("amanda@gmail.com");
         user1.setFirstName("Amanda");
         user1.setName("LECUYOT");
@@ -40,7 +41,7 @@ public class InitH2DB {
         users.add(user1);
 
         User userP1 = new User();
-        userP1.setAge(18);
+        userP1.setBirthDate(LocalDate.of(1991, 6, 16));
         userP1.setEmail("audrey@gmail.com");
         userP1.setFamily("BARALE");
         userP1.setFirstName("Audrey");
@@ -53,14 +54,14 @@ public class InitH2DB {
         user2.setFirstName("Elea");
         user2.setName("Carriere");
         user2.setHandle("Elea");
-        user2.setAge(7);
+        user2.setBirthDate(LocalDate.of(2013, 6, 30));
         user2.setFamily("BARALE");
         user2.setParent(userP1);
         user2.setPassword(passwordHasher.encode("elea"));
         users.add(user2);
 
         User userP2 = new User();
-        userP2.setAge(33);
+        userP2.setBirthDate(LocalDate.of(1988, 11, 14));
         userP2.setEmail("laura@gmail.com");
         userP2.setFamily("BARALE");
         userP2.setFirstName("Laura");
@@ -73,14 +74,14 @@ public class InitH2DB {
         user3.setFirstName("Livia");
         user3.setName("Lecuyot");
         user3.setHandle("Livia");
-        user3.setAge(4);
+        user3.setBirthDate(LocalDate.of(1990, 5, 23));
         user3.setFamily("BARALE");
         user3.setParent(userP2);
         user3.setPassword(passwordHasher.encode("livia"));
         users.add(user3);
 
         User ced = new User();
-        ced.setAge(37);
+        ced.setBirthDate(LocalDate.of(1984, 9, 17));
         ced.setEmail("cedric@gmail.com");
         ced.setFirstName("Cedric");
         ced.setName("BARALE");

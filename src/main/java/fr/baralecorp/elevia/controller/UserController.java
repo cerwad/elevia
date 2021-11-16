@@ -1,75 +1,55 @@
 package fr.baralecorp.elevia.controller;
 
-import fr.baralecorp.elevia.dao.UserRepository;
-import fr.baralecorp.elevia.domain.User;
+import fr.baralecorp.elevia.controller.session.IAuthenticationFacade;
+import fr.baralecorp.elevia.controller.transferObj.UserDisplay;
+import fr.baralecorp.elevia.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @Controller
 @RequestMapping("user")
-public class UserController {
+public class UserController extends BasicController {
+
+    Logger logger = LoggerFactory.getLogger(UserController.class);
+
 
     @Autowired
-    private UserRepository userRepository;
+    private IAuthenticationFacade authenticationFacade;
 
-    @GetMapping("/signup")
-    public String showSignUpForm(User user) {
-        return "user/add-user";
-    }
-
-    @PostMapping("/adduser")
-    public String addUser(@Valid User user, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            return "user/add-user";
-        }
-
-        userRepository.save(user);
-        return "redirect:/user/list";
-    }
-
-    @GetMapping("/list")
-    public String showUserList(Model model) {
-        model.addAttribute("users", userRepository.findAll());
-        return "user/list";
-    }
-    // additional CRUD methods
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/edit/{id}")
-    public String showUpdateForm(@PathVariable("id") long id, Model model) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-
-        model.addAttribute("user", user);
+    public String showUpdateForm(@ModelAttribute("user") UserDisplay player, @PathVariable("id") long id, Model model) {
+        if (authenticationFacade.isUserAuthenticated()) {
+            if (id != authenticationFacade.getAuthenticatedUser().getId()) {
+                throw new SecurityException("User allowed to modify only his info");
+            }
+        } else {
+            throw new RuntimeException("Warning Unauthorized user accessed protected service");
+        }
+        addPlayerInfoToModel(model, authenticationFacade);
         return "user/update-user";
     }
 
     @PostMapping("/update/{id}")
-    public String updateUser(@PathVariable("id") long id, @Valid User user,
+    public String updateUser(@PathVariable("id") long id, @Valid @ModelAttribute("user") UserDisplay user,
                              BindingResult result, Model model) {
         if (result.hasErrors()) {
             user.setId(id);
             return "user/update-user";
         }
 
-        userRepository.save(user);
-        return "redirect:/user/list";
+        userService.save(user);
+        addPlayerInfoToModel(model, authenticationFacade);
+        return "redirect:/user/update-user";
     }
-
-    @GetMapping("/delete/{id}")
-    public String deleteUser(@PathVariable("id") long id, Model model) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-        userRepository.delete(user);
-        return "redirect:/user/list";
-    }
-
 
 }

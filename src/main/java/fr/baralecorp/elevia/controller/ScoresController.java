@@ -21,7 +21,7 @@ import java.util.List;
 @Controller
 public class ScoresController extends BasicController {
 
-    Logger logger = LoggerFactory.getLogger(PlayController.class);
+    Logger logger = LoggerFactory.getLogger(ScoresController.class);
 
     @Autowired
     private IAuthenticationFacade authenticationFacade;

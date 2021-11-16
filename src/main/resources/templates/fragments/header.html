@@ -9,8 +9,9 @@
     <nav class="navbar navbar-expand-lg navbar-light" style="padding-left: 5%; padding-right: 5%;">
         <div class="container-fluid ">
             <a class="navbar-brand " href="/index" th:href="@{/index}"><img alt="Cute Elevia"
-                                                   class="img-fluid" th:src="@{/img/logo.webp}"
-                                                   src="img/logo.webp" style="max-width: 100%; height: auto; max-height: 12vh;"></a>
+                                                                            class="img-fluid" th:src="@{/img/logo.webp}"
+                                                                            src="img/logo.webp"
+                                                                            style="max-width: 100%; height: auto; max-height: 12vh;"></a>
             <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
                     class="navbar-toggler"
                     data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse" type="button">
@@ -19,10 +20,13 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a aria-current="page" class="nav-link active" th:class="${view == 'index'} ? 'nav-link active' : 'nav-link'" href="/index" th:href="@{/index}">Home</a>
+                        <a aria-current="page" class="nav-link active"
+                           th:class="${view == 'index'} ? 'nav-link active' : 'nav-link'" href="/index"
+                           th:href="@{/index}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:class="${view == 'partie'} ? 'nav-link active' : 'nav-link'" href="/partie" th:href="@{/partie}">Partie rapide</a>
+                        <a class="nav-link" th:class="${view == 'partie'} ? 'nav-link active' : 'nav-link'"
+                           href="/partie" th:href="@{/partie}">Partie rapide</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
@@ -31,17 +35,29 @@
                             Scores
                         </a>
                         <ul aria-labelledby="navbarDropdown" class="dropdown-menu">
-                            <li><a class="dropdown-item" th:class="${view == 'scores/best'} ? 'dropdown-item active' : 'dropdown-item'" href="/scores/best" th:href="@{/scores/best}">Meilleurs scores</a></li>
-                            <li><a class="dropdown-item" th:class="${view == 'scores/topTenDay'} ? 'dropdown-item active' : 'dropdown-item'" href="/scores/topTenDay" th:href="@{/scores/topTenDay}">Meilleurs scores du jour</a></li>
-                            <li th:if="${authenticated}"><a class="dropdown-item" th:class="${view == 'scores/family'} ? 'dropdown-item active' : 'dropdown-item'" href="/scores/family" th:href="@{/scores/family}">Score de la famille</a></li>
+                            <li><a class="dropdown-item"
+                                   th:class="${view == 'scores/best'} ? 'dropdown-item active' : 'dropdown-item'"
+                                   href="/scores/best" th:href="@{/scores/best}">Meilleurs scores</a></li>
+                            <li><a class="dropdown-item"
+                                   th:class="${view == 'scores/topTenDay'} ? 'dropdown-item active' : 'dropdown-item'"
+                                   href="/scores/topTenDay" th:href="@{/scores/topTenDay}">Meilleurs scores du jour</a>
+                            </li>
+                            <li th:if="${authenticated}"><a class="dropdown-item"
+                                                            th:class="${view == 'scores/family'} ? 'dropdown-item active' : 'dropdown-item'"
+                                                            href="/scores/family" th:href="@{/scores/family}">Score de
+                                la famille</a></li>
                             <li th:if="${authenticated}">
                                 <hr class="dropdown-divider">
                             </li>
-                            <li th:if="${authenticated}"><a class="dropdown-item" th:class="${view == 'scores/topTenDay'} ? 'dropdown-item active' : 'dropdown-item'" href="/scores/myScores" th:href="@{/scores/myScores}">Mes scores</a></li>
+                            <li th:if="${authenticated}"><a class="dropdown-item"
+                                                            th:class="${view == 'scores/topTenDay'} ? 'dropdown-item active' : 'dropdown-item'"
+                                                            href="/scores/myScores" th:href="@{/scores/myScores}">Mes
+                                scores</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/login" th:href="@{/login}"  th:inline="text" th:class="${view == 'login'} ? 'nav-link active' : 'nav-link'">
+                        <a th:if="${player == null}" class="nav-link" href="/login" th:href="@{/login}" th:inline="text"
+                           th:class="${view == 'login'} ? 'nav-link active' : 'nav-link'">
                             <div>
                                 <svg data-bbox="0 0 50 50" data-type="shape" fill="#d4ac4c"
                                      height="20"
@@ -52,8 +68,13 @@
                                         </path>
                                     </g>
                                 </svg>
-                                <span th:text="${player == null ? 'Login' : player.firstName}">Login</span>
+                                <span>Login</span>
                             </div>
+                        </a>
+                        <a th:if="${authenticated}" class="nav-link" href="/user/update-user"
+                           th:href="@{/user/edit/{id}(id=${player.id})}" th:inline="text"
+                           th:class="${view == 'user/update-user'} ? 'nav-link active' : 'nav-link'">
+                            <span th:text="${player.handle}">Cedric</span>
                         </a>
                     </li>
                 </ul>
