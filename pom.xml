@@ -126,14 +126,14 @@
             </dependencies>
         </profile>
         <profile>
-            <id>preProd</id>
+            <id>preprod</id>
             <properties>
-                <spring.profiles.active>preProd</spring.profiles.active>
+                <spring.profiles.active>preprod</spring.profiles.active>
             </properties>
             <activation>
                 <property>
                     <name>env.PROFILE</name>
-                    <value>pre-prod</value>
+                    <value>preprod</value>
                 </property>
             </activation>
             <dependencies>

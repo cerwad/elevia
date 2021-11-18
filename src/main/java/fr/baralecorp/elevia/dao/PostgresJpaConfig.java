@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Profile;
 import javax.sql.DataSource;
 import java.net.URI;
 
-@Profile({"staging", "preProd"})
+@Profile({"staging", "preprod"})
 @Configuration
 public class PostgresJpaConfig {
 
