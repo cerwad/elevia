@@ -35,6 +35,8 @@ public class UserController extends BasicController {
         } else {
             throw new RuntimeException("Warning Unauthorized user accessed protected service");
         }
+        player = userService.getUserById(id);
+        model.addAttribute("user", player);
         addPlayerInfoToModel(model, authenticationFacade);
         return "user/update-user";
     }
