@@ -51,7 +51,7 @@ public class UserController extends BasicController {
 
         userService.save(user);
         addPlayerInfoToModel(model, authenticationFacade);
-        return "redirect:/user/update-user";
+        return "redirect:user/update-user";
     }
 
 }
