@@ -14,11 +14,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@RequestMapping("scores")
 public class ScoresController extends BasicController {
 
     Logger logger = LoggerFactory.getLogger(ScoresController.class);
@@ -32,7 +34,7 @@ public class ScoresController extends BasicController {
     @Autowired
     private BestScoresService bestScoresService;
 
-    @GetMapping("/scores/best")
+    @GetMapping("/best")
     public String scores(Model model) {
         addPlayerInfoToModel(model, authenticationFacade);
         List<Score> scores = bestScoresService.getScores(ExerciseType.MULTIPLICATION, 10);
@@ -42,12 +44,12 @@ public class ScoresController extends BasicController {
         logger.info("DisplayScores : " + listScores);
         model.addAttribute("scores", listScores);
 
-        String view = "/scores/best";
+        String view = "scores/best";
         model.addAttribute("view", view);
         return view;
     }
 
-    @GetMapping("/scores/topTenDay")
+    @GetMapping("/topTenDay")
     public String topTenDay(Model model) {
         addPlayerInfoToModel(model, authenticationFacade);
 
@@ -56,7 +58,7 @@ public class ScoresController extends BasicController {
         topTen.forEach(d -> scores.add(new DayScoreDisplay(d)));
         model.addAttribute("scores", scores);
 
-        String view = "/scores/topTenDay";
+        String view = "scores/topTenDay";
         model.addAttribute("view", view);
         return view;
     }
