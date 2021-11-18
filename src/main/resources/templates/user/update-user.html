@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset='utf-8'>
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <!--<base href="${@environment.getProperty('root.url')}/">-->
+
+    <link href="../img/favelevia192.ico" th:href="@{/img/favelevia192.ico}" rel="icon" sizes="192x192">
+    <link href="../img/favicon.ico" th:href="@{/img/favicon.ico}" rel="shortcut icon" type="image/x-icon"/>
+    <link href="../img/favicon.ico" th:href="@{/img/favicon.ico}" rel="apple-touch-icon" type="image/x-icon"/>
+
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" rel="stylesheet"/>
+    <link href="/css/main.css" th:href="@{/css/main.css}" rel="stylesheet"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <title>Inscription | elevia</title>
+    <link href="${@environment.getProperty('root.url')}" rel="canonical"/>
+    <meta content="Partie | elevia" property="og:title"/>
+    <meta content="${@environment.getProperty('root.url')}" property="og:url"/>
+    <meta content="elevia" property="og:site_name"/>
+    <meta content="website" property="og:type"/>
+    <meta content="summary_large_image" name="twitter:card"/>
+    <meta content="Inscription | elevia" name="twitter:title"/>
+</head>
+
+<body>
+
+<header th:replace="fragments/header :: header">
+    <nav class="navbar navbar-expand-lg navbar-light" style="padding-left: 5%; padding-right: 5%;">
+        <div class="container-fluid ">
+            <a class="navbar-brand " href="#"><img alt="Cute Elevia"
+                                                   class="img-fluid"
+                                                   src="img/logo.webp"
+                                                   style="max-width: 100%; height: auto; max-height: 10vh;"></a>
+            <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+                    class="navbar-toggler" data-bs-target="#navbarSupportedContent"
+                    data-bs-toggle="collapse" type="button">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a aria-current="page" class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="partie.html">Partie rapide</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+                           id="navbarDropdown" role="button">
+                            Scores
+                        </a>
+                        <ul aria-labelledby="navbarDropdown" class="dropdown-menu">
+                            <li><a class="dropdown-item" href="scores.html">Hall of Fame</a></li>
+                            <li><a class="dropdown-item" href="scores.html">Score de la famille</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="scores.html">Mes meilleurs scores</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <div>
+                            <a class="nav-link" href="#">
+                                <svg data-bbox="0 0 50 50" data-type="shape" fill="#d4ac4c"
+                                     height="20" viewBox="0 0 50 50" width="20" xmlns="http://www.w3.org/2000/svg">
+                                    <g>
+                                        <path
+                                                d="M25 48.077c-5.924 0-11.31-2.252-15.396-5.921 2.254-5.362 7.492-8.267 15.373-8.267 7.889 0 13.139 3.044 15.408 8.418-4.084 3.659-9.471 5.77-15.385 5.77m.278-35.3c4.927 0 8.611 3.812 8.611 8.878 0 5.21-3.875 9.456-8.611 9.456s-8.611-4.246-8.611-9.456c0-5.066 3.684-8.878 8.611-8.878M25 0C11.193 0 0 11.193 0 25c0 .915.056 1.816.152 2.705.032.295.091.581.133.873.085.589.173 1.176.298 1.751.073.338.169.665.256.997.135.515.273 1.027.439 1.529.114.342.243.675.37 1.01.18.476.369.945.577 1.406.149.331.308.657.472.98.225.446.463.883.714 1.313.182.312.365.619.56.922.272.423.56.832.856 1.237.207.284.41.568.629.841.325.408.671.796 1.02 1.182.22.244.432.494.662.728.405.415.833.801 1.265 1.186.173.154.329.325.507.475l.004-.011A24.886 24.886 0 0 0 25 50a24.881 24.881 0 0 0 16.069-5.861.126.126 0 0 1 .003.01c.172-.144.324-.309.49-.458.442-.392.88-.787 1.293-1.209.228-.232.437-.479.655-.72.352-.389.701-.78 1.028-1.191.218-.272.421-.556.627-.838.297-.405.587-.816.859-1.24a26.104 26.104 0 0 0 1.748-3.216c.208-.461.398-.93.579-1.406.127-.336.256-.669.369-1.012.167-.502.305-1.014.44-1.53.087-.332.183-.659.256-.996.126-.576.214-1.164.299-1.754.042-.292.101-.577.133-.872.095-.89.152-1.791.152-2.707C50 11.193 38.807 0 25 0">
+                                        </path>
+                                    </g>
+                                </svg>
+                                Login</a>
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+</header>
+<main>
+    <div id="account">
+        <section class="py-2 text-center container ">
+            <div class="row py-lg-5">
+                <div class="col-lg-6 col-md-8 mx-auto">
+                    <h1 class="fw-light">Crée ton compte</h1>
+                    <p class="lead text-muted">Avec un compte tu pourras suivre ta progression et défier tes amis !</p>
+                </div>
+            </div>
+        </section>
+
+        <form class="container px-4 needs-validation" action="#" method="post"
+              th:action="@{/user/update/{id}(id=${player.id})}"
+              th:object="${user}">
+            <div class="row gx-5 gy-3 py-3">
+                <div class="col">
+                    <label class="form-label" for="firstName">Prénom</label>
+                    <input id="firstName" class="form-control" placeholder="Prénom" th:field="*{firstName}" type="text"
+                           readonly>
+                    <span th:errors="*{firstName}" th:if="${#fields.hasErrors('firstName')}"></span>
+                </div>
+                <div class="col">
+                    <label class="form-label" for="name">Nom</label>
+                    <input id="name" class="form-control" placeholder="Nom" th:field="*{name}" type="text" readonly>
+                    <span th:errors="*{name}" th:if="${#fields.hasErrors('name')}"></span>
+                </div>
+                <div class="col">
+                    <label class="form-label" for="birthdate">Date de naissance</label>
+                    <input id="birthdate" class="form-control" placeholder="Format dd/mm/yyyy" th:field="*{birthDate}"
+                           type="text">
+                    <span th:errors="*{birthDate}" th:if="${#fields.hasErrors('birthDate')}"></span>
+                </div>
+            </div>
+            <div class="row gx-5 gy-3 py-3">
+                <div class="col">
+                    <label class="form-label" for="email">Email</label>
+                    <input id="email" class="form-control" placeholder="Email" th:field="*{email}" type="text">
+                    <span th:errors="*{email}" th:if="${#fields.hasErrors('email')}"></span>
+                </div>
+                <div class="col">
+                    <label class="form-label" for="handle">Pseudo</label>
+                    <input id="handle" class="form-control" placeholder="Pseudo" th:field="*{handle}" type="text">
+                    <span th:errors="*{handle}" th:if="${#fields.hasErrors('handle')}"></span>
+                </div>
+            </div>
+            <div class="row gx-5 gy-3 py-3">
+                <div class="col">
+                    <label class="form-label" for="password">Mot de passe</label>
+                    <input id="password" class="form-control" placeholder="Mot de passe" th:field="*{password}"
+                           type="text">
+                    <span th:errors="*{password}" th:if="${#fields.hasErrors('password')}"></span>
+                </div>
+                <div class="col">
+                    <label class="form-label" for="password2">Confirmation du mot de passe</label>
+                    <input id="password2" class="form-control" placeholder="Mot de passe" type="text">
+                    <span class="hidden error">Les deux mots de passe doivent être identiques</span>
+                </div>
+            </div>
+            <div class="row gx-5 gy-3 py-3">
+                <div class="col">
+                    <label class="form-label" for="family">Famille</label>
+                    <input id="family" class="form-control" placeholder="Famille" th:field="*{family}" type="text">
+                    <span th:errors="*{family}" th:if="${#fields.hasErrors('family')}"></span>
+                </div>
+                <input class="col btn btn-primary btn-lg mx-auto" type="submit" value="Créer">
+            </div>
+        </form>
+    </div>
+
+</main>
+<footer class="footerColor mt-auto py-3 text-center text-lg-start d-none d-sm-none d-md-block">
+    <!-- Copyright -->
+    <div class="container-fluid text-center p-md-3">
+        <span>©2021 by Elevia proudly created by tonton dricou</span>
+    </div>
+
+</footer>
+
+<script crossorigin="anonymous"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
