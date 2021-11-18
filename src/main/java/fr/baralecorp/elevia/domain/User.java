@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 @Entity
+@Table(name = "Player")
 public class User implements UserDetails {
 
     @Id

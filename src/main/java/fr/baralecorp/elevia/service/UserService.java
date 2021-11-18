@@ -54,7 +54,9 @@ public class UserService {
 
     public User toUser(UserDisplay userDisplay) {
         User user = new User();
-        user.setId(userDisplay.getId());
+        if (userDisplay.getId() != null) {
+            user.setId(userDisplay.getId());
+        }
         user.setEmail(userDisplay.getEmail());
         user.setPassword(passwordHasher.encode(userDisplay.getPassword()));
         user.setBirthDate(userDisplay.getBirthDate());
