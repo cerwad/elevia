@@ -126,7 +126,6 @@ public class UserDisplay {
                 ", birthDate=" + birthDate +
                 ", handle='" + handle + '\'' +
                 ", family='" + family + '\'' +
-                ", password='" + password + '\'' +
                 '}';
     }
 }
