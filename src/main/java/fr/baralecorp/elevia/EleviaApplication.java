@@ -1,7 +1,6 @@
 package fr.baralecorp.elevia;
 
-import fr.baralecorp.elevia.batch.InitH2DB;
-import fr.baralecorp.elevia.service.BestScoresService;
+import fr.baralecorp.elevia.dao.DatabaseSetup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +9,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.core.env.ConfigurableEnvironment;
+
+import java.util.Arrays;
 
 @SpringBootApplication
 public class EleviaApplication {
@@ -20,24 +22,25 @@ public class EleviaApplication {
     private String environment;
 
     @Autowired
-    private BestScoresService bestScoresService;
+    private DatabaseSetup datasourceConfig;
 
     @Autowired
-    private InitH2DB initH2DB;
+    private ConfigurableEnvironment env;
 
     public static void main(String[] args) {
         SpringApplication.run(EleviaApplication.class, args);
     }
 
     @EventListener(ApplicationReadyEvent.class)
-    public void initH2Db() {
-        logger.info("Application is starting up in environment " + environment);
-        if ("dev".equals(environment)) {
-            logger.info("Initializing in Memory DB H2");
-            initH2DB.addUsers();
-            initH2DB.addResults();
-            bestScoresService.generateScoresFromResults();
-        }
+    public void init() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Application is starting up with profiles ").append(Arrays.toString(env.getActiveProfiles()));
+        logger.info(builder.toString());
+        builder.setLength(0);
+        builder.append("Environment : ");
+        builder.append(environment);
+        logger.info(builder.toString());
+        datasourceConfig.setup();
     }
 
 }
