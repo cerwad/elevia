@@ -111,6 +111,12 @@
             <properties>
                 <spring.profiles.active>staging</spring.profiles.active>
             </properties>
+            <activation>
+                <property>
+                    <name>env.PROFILE</name>
+                    <value>staging</value>
+                </property>
+            </activation>
             <dependencies>
                 <dependency>
                     <groupId>org.postgresql</groupId>
