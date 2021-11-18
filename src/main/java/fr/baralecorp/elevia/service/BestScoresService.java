@@ -63,12 +63,14 @@ public class BestScoresService {
     }
 
     public void addNewScore(Result result) {
-        List<Score> scores = sort(scoreRepository.findByExercise(result.getExercise()));
-        if (scores.size() < MAX_BEST_SCORES || scores.get(MAX_BEST_SCORES - 1).getTime().getNano() > result.getTime().getNano()) {
-            if (scores.size() >= MAX_BEST_SCORES) {
-                scoreRepository.delete(scores.get(MAX_BEST_SCORES - 1));
+        if (result.getNbErrors() == 0) {
+            List<Score> scores = sort(scoreRepository.findByExercise(result.getExercise()));
+            if (scores.size() < MAX_BEST_SCORES || scores.get(MAX_BEST_SCORES - 1).getTime().getNano() > result.getTime().getNano()) {
+                if (scores.size() >= MAX_BEST_SCORES) {
+                    scoreRepository.delete(scores.get(MAX_BEST_SCORES - 1));
+                }
+                scoreRepository.save(Score.of(result));
             }
-            scoreRepository.save(Score.of(result));
         }
     }
 

@@ -126,6 +126,25 @@
             </dependencies>
         </profile>
         <profile>
+            <id>preProd</id>
+            <properties>
+                <spring.profiles.active>preProd</spring.profiles.active>
+            </properties>
+            <activation>
+                <property>
+                    <name>env.PROFILE</name>
+                    <value>pre-prod</value>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.postgresql</groupId>
+                    <artifactId>postgresql</artifactId>
+                    <version>42.3.1</version>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
             <id>prod</id>
             <properties>
                 <spring.profiles.active>prod</spring.profiles.active>
