@@ -7,10 +7,11 @@ import org.springframework.context.annotation.Profile;
 
 import javax.sql.DataSource;
 import java.net.URI;
+import java.util.Properties;
 
 @Profile("staging")
 @Configuration
-public class JpaConfig {
+public class PostgresJpaConfig {
 
     @Bean
     public DataSource getDataSource() {
@@ -26,5 +27,18 @@ public class JpaConfig {
         dataSourceBuilder.username(username);
         dataSourceBuilder.password(password);
         return dataSourceBuilder.build();
+    }
+
+    @Bean
+    public Properties additionalProps() {
+        Properties jpaProps = new Properties();
+
+        jpaProps.put("spring.jpa.hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+        jpaProps.put("spring.jpa.hibernate.ddl-auto", "update");
+        //jpaProps.put(showSql, true);
+        //jpaProps.put(formatSql, true);
+        jpaProps.put("javax.persistence.create-database-schemas", true);
+
+        return jpaProps;
     }
 }
