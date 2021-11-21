@@ -148,7 +148,8 @@
             <div class="row text-center g-0">
                 <div class="col-md-4">
                     <div class="card">
-                        <a href="/play"><img alt="Entrainement" class="img-fluid" src="img/calc.webp"></a>
+                        <a th:href="@{/partie}" href="/play"><img alt="Entrainement" class="img-fluid"
+                                                                  src="img/calc.webp"></a>
                         <div class="card-body" style="background-color: #fbfae6;">
                             <p class="card-text">Lance un Entrainement</p>
                         </div>
@@ -156,17 +157,19 @@
                 </div>
                 <div class="col-md-4">
                     <div class="card">
-                        <a href="/scores"><img alt="Classement" class="img-fluid" src="img/classe.webp"></a>
+                        <a th:href="@{/scores/best}" href="/scores"><img alt="Classement" class="img-fluid"
+                                                                         src="img/classe.webp"></a>
                         <div class="card-body" style="background-color: #fbfae6;">
-                            <p class="card-text">Regarde ton classement</p>
+                            <p class="card-text">Meilleurs scores</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="card">
-                        <a href="/scores"><img alt="Progrès" class="img-fluid" src="img/Multi.jpg"></a>
+                        <a th:href="@{/scores/topTenDay}" href="/scores"><img alt="Progrès" class="img-fluid"
+                                                                              src="img/Multi.jpg"></a>
                         <div class="card-body" style="background-color: #fbfae6;">
-                            <p class="card-text">Admire tes progrès</p>
+                            <p class="card-text">Top 10 du jour</p>
                         </div>
                     </div>
 
