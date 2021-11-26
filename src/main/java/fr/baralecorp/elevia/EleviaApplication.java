@@ -1,6 +1,7 @@
 package fr.baralecorp.elevia;
 
 import fr.baralecorp.elevia.dao.DatabaseSetup;
+import fr.baralecorp.elevia.service.data.AppData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ public class EleviaApplication {
     @Autowired
     private ConfigurableEnvironment env;
 
+    @Autowired
+    private AppData appData;
+
     public static void main(String[] args) {
         SpringApplication.run(EleviaApplication.class, args);
     }
@@ -41,6 +45,7 @@ public class EleviaApplication {
         builder.append(environment);
         logger.info(builder.toString());
         datasourceConfig.setup();
+        appData.setup(environment);
     }
 
 }
