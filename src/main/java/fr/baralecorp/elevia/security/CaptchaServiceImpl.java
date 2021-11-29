@@ -64,10 +64,10 @@ public class CaptchaServiceImpl implements CaptchaService {
         }
         verifyEvent(event, assesment);
         if (assesment.getScore() < minScore) {
-            logger.warn("Google detected a fraudulent behavior from this user for reasons: " + Arrays.toString(assesment.getReasons()));
+            logger.warn("Google detected a fraudulent behavior with a score of " + assesment.getScore() + " from this user for reasons: " + Arrays.toString(assesment.getReasons()));
             throw new RuntimeException("Are you a robot ? Google thinks so");
         }
-
+        logger.debug("Google passed this request with a score of " + assesment.getScore());
         return true;
     }
 
