@@ -37,7 +37,6 @@ public class UserController extends BasicController {
         }
         player = userService.getUserById(id);
         model.addAttribute("user", player);
-        addPlayerInfoToModel(model, authenticationFacade);
         return "user/update-user";
     }
 
@@ -50,7 +49,6 @@ public class UserController extends BasicController {
         }
 
         userService.save(user);
-        addPlayerInfoToModel(model, authenticationFacade);
         return "redirect:user/update-user";
     }
 

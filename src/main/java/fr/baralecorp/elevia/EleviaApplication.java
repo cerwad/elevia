@@ -1,6 +1,9 @@
 package fr.baralecorp.elevia;
 
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.LoggerContext;
 import fr.baralecorp.elevia.dao.DatabaseSetup;
+import fr.baralecorp.elevia.service.data.AppData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +30,9 @@ public class EleviaApplication {
     @Autowired
     private ConfigurableEnvironment env;
 
+    @Autowired
+    private AppData appData;
+
     public static void main(String[] args) {
         SpringApplication.run(EleviaApplication.class, args);
     }
@@ -41,6 +47,26 @@ public class EleviaApplication {
         builder.append(environment);
         logger.info(builder.toString());
         datasourceConfig.setup();
+        appData.setup(environment);
+        setupLogging();
     }
 
+    protected void setupLogging() {
+        LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
+        // Set Root logging level
+        if (appData.getRootLoggingLevel() != null) {
+            ch.qos.logback.classic.Logger logger = loggerContext.getLogger("ROOT");
+            logger.setLevel(Level.toLevel(appData.getRootLoggingLevel()));
+        }
+        // Set Spring logging level
+        if (appData.getSpringLoggingLevel() != null) {
+            ch.qos.logback.classic.Logger logger = loggerContext.getLogger("org.springframework");
+            logger.setLevel(Level.toLevel(appData.getAppLoggingLevel()));
+        }
+        // Set App logging level
+        if (appData.getAppLoggingLevel() != null) {
+            ch.qos.logback.classic.Logger logger = loggerContext.getLogger("fr.baralecorp.elevia");
+            logger.setLevel(Level.toLevel(appData.getAppLoggingLevel()));
+        }
+    }
 }

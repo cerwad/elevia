@@ -30,7 +30,6 @@ public class ResultRestController extends BasicController {
     // When Spring Sec add the User or Session
     @PostMapping("/success")
     void success(ExerciseResults exerciseResults, Model model) {
-        addPlayerInfoToModel(model, authenticationFacade);
         logger.info(String.format("Exercise success with %d errors in %d seconds and %d tenths",
                 exerciseResults.getNbErrors(), exerciseResults.getSeconds(), exerciseResults.getSecondTenths()));
 

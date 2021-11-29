@@ -36,7 +36,6 @@ public class ScoresController extends BasicController {
 
     @GetMapping("/best")
     public String scores(Model model) {
-        addPlayerInfoToModel(model, authenticationFacade);
         List<Score> scores = bestScoresService.getScores(ExerciseType.MULTIPLICATION, 10);
         logger.info("Scores : " + scores);
         List<ScoreDisplay> listScores = new ArrayList<>();
@@ -51,7 +50,6 @@ public class ScoresController extends BasicController {
 
     @GetMapping("/topTenDay")
     public String topTenDay(Model model) {
-        addPlayerInfoToModel(model, authenticationFacade);
 
         List<DayScore> topTen = bestScoresOfDayService.getTop10List();
         List<DayScoreDisplay> scores = new ArrayList<>();

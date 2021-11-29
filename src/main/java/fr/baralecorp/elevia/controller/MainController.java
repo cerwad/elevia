@@ -2,6 +2,7 @@ package fr.baralecorp.elevia.controller;
 
 import fr.baralecorp.elevia.controller.session.IAuthenticationFacade;
 import fr.baralecorp.elevia.controller.transferObj.UserDisplay;
+import fr.baralecorp.elevia.security.CaptchaService;
 import fr.baralecorp.elevia.service.UserService;
 import fr.baralecorp.elevia.service.util.DateUtil;
 import org.slf4j.Logger;
@@ -28,11 +29,13 @@ public class MainController extends BasicController {
     private IAuthenticationFacade authenticationFacade;
 
     @Autowired
+    private CaptchaService captchaService;
+
+    @Autowired
     private UserService userService;
 
     @RequestMapping(value = {"/index", "/"})
     public String index(Model model) {
-        addPlayerInfoToModel(model, authenticationFacade);
 
         String view = "index";
         model.addAttribute("view", view);
@@ -41,7 +44,10 @@ public class MainController extends BasicController {
 
     @GetMapping("/signup")
     public String showSignUpForm(@ModelAttribute("user") UserDisplay player, Model model) {
-        return "signup";
+        model.addAttribute("gre_siteKey", captchaService.getSiteKey());
+        String view = "signup";
+        model.addAttribute("view", view);
+        return view;
     }
 
     @PostMapping("/adduser")

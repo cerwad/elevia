@@ -15,11 +15,11 @@ public class PlayController extends BasicController {
     private IAuthenticationFacade authenticationFacade;
 
     Logger logger = LoggerFactory.getLogger(PlayController.class);
+
     // In the future add the user so we can adapt the exercise
     @GetMapping("/partie")
     public String play(Model model) {
         logger.info("Let's play !");
-        addPlayerInfoToModel(model, authenticationFacade);
         String view = "partie";
         model.addAttribute("view", view);
         return view;
