@@ -54,7 +54,7 @@ public class EleviaApplication {
     protected void setupLogging() {
         LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
         // Set Root logging level
-        if (appData.getAppLoggingLevel() != null) {
+        if (appData.getRootLoggingLevel() != null) {
             ch.qos.logback.classic.Logger logger = loggerContext.getLogger("ROOT");
             logger.setLevel(Level.toLevel(appData.getRootLoggingLevel()));
         }
