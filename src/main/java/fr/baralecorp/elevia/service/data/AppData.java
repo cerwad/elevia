@@ -12,4 +12,15 @@ public interface AppData {
 
     CaptchaConfig getCaptchaConfig();
 
+    default String getAppLoggingLevel() {
+        return System.getenv("LOGGING_APP_LEVEL");
+    }
+
+    default String getSpringLoggingLevel() {
+        return System.getenv("LOGGING_SPRING_LEVEL");
+    }
+
+    default String getRootLoggingLevel() {
+        return System.getenv("LOGGING_ROOT_LEVEL");
+    }
 }
