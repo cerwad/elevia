@@ -1,5 +1,7 @@
 package fr.baralecorp.elevia.controller;
 
+import com.google.common.base.Strings;
+import fr.baralecorp.elevia.controller.resolver.RecaptchaToken;
 import fr.baralecorp.elevia.controller.session.IAuthenticationFacade;
 import fr.baralecorp.elevia.controller.transferObj.UserDisplay;
 import fr.baralecorp.elevia.security.CaptchaService;
@@ -51,7 +53,7 @@ public class MainController extends BasicController {
     }
 
     @PostMapping("/adduser")
-    public String addUser(@Valid @ModelAttribute("user") UserDisplay player, BindingResult result, Model model) {
+    public String addUser(@Valid @ModelAttribute("user") UserDisplay player, @RecaptchaToken String recaptchaToken, BindingResult result, Model model) {
         validateUser(player, result);
         if (result.hasErrors()) {
             model.addAttribute("user", player);
@@ -60,8 +62,14 @@ public class MainController extends BasicController {
             } else if (result.hasGlobalErrors()) {
                 logger.info(result.getErrorCount() + " Validation Error " + result.getGlobalError().getDefaultMessage());
             }
+            model.addAttribute("gre_siteKey", captchaService.getSiteKey());
             return "signup";
         }
+        logger.debug("Token: " + recaptchaToken + " Model: " + model.toString());
+        if (Strings.isNullOrEmpty(recaptchaToken)) {
+            throw new SecurityException("Did not receive captcha token");
+        }
+        captchaService.verifyUserAction("signup", recaptchaToken);
         logger.info("Creating new user: " + player.toString());
         userService.save(player);
         return "redirect:/index";
