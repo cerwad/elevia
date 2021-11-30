@@ -25,10 +25,6 @@ public class UserDisplay {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate birthDate;
 
-    /*
-    @NotNull
-    private String birthDate;
-    */
     @NotBlank
     private String handle;
     private String family;
