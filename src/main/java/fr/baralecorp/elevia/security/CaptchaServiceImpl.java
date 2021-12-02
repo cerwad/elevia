@@ -59,7 +59,7 @@ public class CaptchaServiceImpl implements CaptchaService {
             throw new RuntimeException("Error while parsing event into json", e);
         }
         // Call google APIs
-        logger.debug("Asking for an assessment at url: " + buildCaptchaUrlEnd());
+        logger.trace("Asking for an assessment at url: " + buildCaptchaUrlEnd());
         Assesment assesment = restTemplate.postForObject(buildCaptchaUrlEnd(), request, Assesment.class);
         if (assesment == null) {
             throw new RuntimeException("Google recaptcha sent an empty assesment, should never happen");
