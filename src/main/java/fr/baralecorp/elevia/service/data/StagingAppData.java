@@ -1,6 +1,6 @@
 package fr.baralecorp.elevia.service.data;
 
-import fr.baralecorp.elevia.security.CaptchaConfig;
+import fr.baralecorp.elevia.security.CaptchaProperties;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Profile({"staging", "preprod"})
 public class StagingAppData implements AppData {
     protected Env env;
-    protected final CaptchaConfig captchaConfig = new CaptchaConfig();
+    protected final CaptchaProperties captchaProperties = new CaptchaProperties();
 
     @Override
     public Env getEnv() {
@@ -17,13 +17,13 @@ public class StagingAppData implements AppData {
 
     public void setup(String env) {
         this.env = Env.getEnv(env);
-        captchaConfig.setApiKey(System.getenv("GRE_APIKEY"));
-        captchaConfig.setProjectId(System.getenv("GRE_PROJECTID"));
-        captchaConfig.setSiteKey(System.getenv("GRE_SITE_KEY"));
+        captchaProperties.setApiKey(System.getenv("GRE_APIKEY"));
+        captchaProperties.setProjectId(System.getenv("GRE_PROJECTID"));
+        captchaProperties.setSiteKey(System.getenv("GRE_SITE_KEY"));
     }
 
     @Override
-    public CaptchaConfig getCaptchaConfig() {
-        return captchaConfig;
+    public CaptchaProperties getCaptchaConfig() {
+        return captchaProperties;
     }
 }

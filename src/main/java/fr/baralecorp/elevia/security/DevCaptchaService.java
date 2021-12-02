@@ -6,16 +6,11 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 @Component
-@Profile("dev")
+@Profile("prod")
 public class DevCaptchaService implements CaptchaService {
 
     @Autowired
     private AppData appData;
-    
-    @Override
-    public String getSiteKey() {
-        return appData.getCaptchaConfig().getSiteKey();
-    }
 
     @Override
     public boolean verifyUserAction(String userAction, String token) {

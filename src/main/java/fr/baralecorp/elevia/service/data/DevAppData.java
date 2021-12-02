@@ -1,6 +1,6 @@
 package fr.baralecorp.elevia.service.data;
 
-import fr.baralecorp.elevia.security.CaptchaConfig;
+import fr.baralecorp.elevia.security.CaptchaProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,17 +14,24 @@ public class DevAppData implements AppData {
     protected Env env;
     @Value("${gre.sitekey}")
     private String siteKey;
+    @Value("${google.api.key:DummyKey}")
+    private String googleApiKey;
 
-    private final CaptchaConfig captchaConfig = new CaptchaConfig();
+    private final CaptchaProperties captchaProperties = new CaptchaProperties();
 
     @Override
     public void setup(String env) {
         logger.info("Setting gcaptcha dev key " + siteKey);
-        captchaConfig.setSiteKey(siteKey);
+        captchaProperties.setSiteKey(siteKey);
+        captchaProperties.setProjectId("elevia-staging");
+        captchaProperties.setApiKey(googleApiKey);
+        if (googleApiKey == null || "DummyKey".equals(googleApiKey)) {
+            logger.error("Did not load the google api key");
+        }
     }
 
     @Override
-    public CaptchaConfig getCaptchaConfig() {
-        return captchaConfig;
+    public CaptchaProperties getCaptchaConfig() {
+        return captchaProperties;
     }
 }

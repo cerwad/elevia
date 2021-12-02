@@ -1,9 +1,18 @@
 package fr.baralecorp.elevia.security;
 
-public class CaptchaConfig {
+public class CaptchaProperties {
     private String siteKey;
     private String projectId;
     private String apiKey;
+
+    public CaptchaProperties() {
+    }
+
+    public CaptchaProperties(String siteKey, String projectId, String apiKey) {
+        this.siteKey = siteKey;
+        this.projectId = projectId;
+        this.apiKey = apiKey;
+    }
 
     public String getSiteKey() {
         return siteKey;

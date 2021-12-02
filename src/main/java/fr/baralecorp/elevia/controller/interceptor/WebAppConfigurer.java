@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import java.util.List;
 
 @Component
-public class ModelInterceptorAppConfig implements WebMvcConfigurer {
+public class WebAppConfigurer implements WebMvcConfigurer {
     @Autowired
     private ModelInterceptor modelInterceptor;
 

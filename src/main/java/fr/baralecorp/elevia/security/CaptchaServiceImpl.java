@@ -1,9 +1,10 @@
 package fr.baralecorp.elevia.security;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.baralecorp.elevia.security.gcaptcha.Assesment;
 import fr.baralecorp.elevia.security.gcaptcha.Event;
-import fr.baralecorp.elevia.service.data.StagingAppData;
+import fr.baralecorp.elevia.service.data.AppData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,29 +21,25 @@ import javax.validation.constraints.NotNull;
 import java.util.Arrays;
 
 @Component
-@Profile({"staging", "preprod", "prod"})
+@Profile({"staging", "preprod", "dev"})
 public class CaptchaServiceImpl implements CaptchaService {
 
     Logger logger = LoggerFactory.getLogger(CaptchaServiceImpl.class);
 
     @Autowired
-    private StagingAppData appData;
+    private AppData appData;
 
     @Value("${grecaptcha.url}")
-    private String captchaUrl;
+    protected String captchaUrl;
     @Value("${grecaptcha.min.score}")
-    private float minScore;
-    final private RestTemplate restTemplate = new RestTemplate();
+    protected float minScore;
+    @Autowired
+    private RestTemplate restTemplate;
     final private HttpHeaders headers = new HttpHeaders();
 
     @PostConstruct
     protected void init() {
         headers.setContentType(MediaType.APPLICATION_JSON);
-    }
-
-    @Override
-    public String getSiteKey() {
-        return appData.getCaptchaConfig().getSiteKey();
     }
 
     @Override
@@ -53,12 +50,17 @@ public class CaptchaServiceImpl implements CaptchaService {
         event.setToken(token);
         event.setExpectedAction(userAction);
 
-
-        JSONPObject eventJsonObject = new JSONPObject("event", event);
+        ObjectMapper mapper = new ObjectMapper();
         HttpEntity<String> request =
-                new HttpEntity<String>(eventJsonObject.toString(), headers);
+                null;
+        try {
+            request = new HttpEntity<String>(mapper.writeValueAsString(event), headers);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("Error while parsing event into json", e);
+        }
         // Call google APIs
-        Assesment assesment = restTemplate.postForObject(captchaUrl, request, Assesment.class);
+        logger.debug("Asking for an assessment at url: " + buildCaptchaUrlEnd());
+        Assesment assesment = restTemplate.postForObject(buildCaptchaUrlEnd(), request, Assesment.class);
         if (assesment == null) {
             throw new RuntimeException("Google recaptcha sent an empty assesment, should never happen");
         }
@@ -76,5 +78,9 @@ public class CaptchaServiceImpl implements CaptchaService {
             String eventStr = assesment.getEvent() == null ? "null" : assesment.getEvent().toString();
             throw new SecurityException("Google Recaptcha Event received do not match with event sent: " + eventStr);
         }
+    }
+
+    protected String buildCaptchaUrlEnd() {
+        return captchaUrl + appData.getCaptchaConfig().getProjectId() + "/assessments?key=" + appData.getCaptchaConfig().getApiKey();
     }
 }
