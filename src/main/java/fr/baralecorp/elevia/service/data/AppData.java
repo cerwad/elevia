@@ -1,6 +1,6 @@
 package fr.baralecorp.elevia.service.data;
 
-import fr.baralecorp.elevia.security.CaptchaConfig;
+import fr.baralecorp.elevia.security.CaptchaProperties;
 
 public interface AppData {
 
@@ -10,7 +10,7 @@ public interface AppData {
 
     void setup(String env);
 
-    CaptchaConfig getCaptchaConfig();
+    CaptchaProperties getCaptchaConfig();
 
     default String getAppLoggingLevel() {
         return System.getenv("LOGGING_APP_LEVEL");

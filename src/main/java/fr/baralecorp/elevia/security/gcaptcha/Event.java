@@ -1,7 +1,12 @@
 package fr.baralecorp.elevia.security.gcaptcha;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
 import java.util.Objects;
 
+@JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.NAME)
+@JsonTypeName(value = "event")
 public class Event {
     private String token;
     private String siteKey;
