@@ -61,7 +61,7 @@ public class EleviaApplication {
         // Set Spring logging level
         if (appData.getSpringLoggingLevel() != null) {
             ch.qos.logback.classic.Logger logger = loggerContext.getLogger("org.springframework");
-            logger.setLevel(Level.toLevel(appData.getAppLoggingLevel()));
+            logger.setLevel(Level.toLevel(appData.getSpringLoggingLevel()));
         }
         // Set App logging level
         if (appData.getAppLoggingLevel() != null) {
