@@ -1,7 +1,9 @@
 package fr.baralecorp.elevia.security;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import fr.baralecorp.elevia.security.gcaptcha.Assesment;
 import fr.baralecorp.elevia.security.gcaptcha.Event;
 import fr.baralecorp.elevia.service.data.AppData;
@@ -50,14 +52,8 @@ public class CaptchaServiceImpl implements CaptchaService {
         event.setToken(token);
         event.setExpectedAction(userAction);
 
-        ObjectMapper mapper = new ObjectMapper();
-        HttpEntity<String> request =
-                null;
-        try {
-            request = new HttpEntity<String>(mapper.writeValueAsString(event), headers);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException("Error while parsing event into json", e);
-        }
+        HttpEntity<String> request = null;
+        request = new HttpEntity<String>(convertEventToJson(event), headers);
         // Call google APIs
         logger.trace("Asking for an assessment at url: " + buildCaptchaUrlEnd());
         Assesment assesment = restTemplate.postForObject(buildCaptchaUrlEnd(), request, Assesment.class);
@@ -82,5 +78,13 @@ public class CaptchaServiceImpl implements CaptchaService {
 
     protected String buildCaptchaUrlEnd() {
         return captchaUrl + appData.getCaptchaConfig().getProjectId() + "/assessments?key=" + appData.getCaptchaConfig().getApiKey();
+    }
+
+    public static String convertEventToJson(Event event) {
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode jsonNode = mapper.valueToTree(event);
+        ObjectNode eventNode = JsonNodeFactory.instance.objectNode();
+        eventNode.set("event", jsonNode);
+        return eventNode.toString();
     }
 }
