@@ -15,9 +15,37 @@
           integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" rel="stylesheet"/>
     <link href="/css/main.css" th:href="@{/css/main.css}" rel="stylesheet"/>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/signup.js" th:src="@{/js/signup.js}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://www.google.com/recaptcha/enterprise.js?render=6LeDDkUdAAAAAOqL34KEGmd2K60MtQz_CyS-caWr"></script>
+    <script src="https://www.google.com/recaptcha/enterprise.js?render=6LeDDkUdAAAAAOqL34KEGmd2K60MtQz_CyS-caWr"
+            th:src="@{https://www.google.com/recaptcha/enterprise.js(render=${gre_siteKey})}" async
+            defer></script>
+    <script>
 
+        function onSubmit(token) {
+              console.log('onSubmit Called with token')
+              var forms = document.querySelectorAll('.needs-validation')
+              console.log('Starting form validation for fields: '+forms);
+              var validForm = true;
+              // Loop over them and prevent submission
+               Array.prototype.slice.call(forms)
+                 .forEach(function (form) {
+                     console.log('Checking validity of '+form)
+                     if (!form.checkValidity()) {
+                        console.log('Field not valid !')
+                        validForm = false;
+                     }
+
+                     form.classList.add('was-validated')
+
+                 })
+               if(validForm === true){
+                    $('#signupForm').submit();
+               }
+        }
+
+    </script>
 
     <title>Inscription | elevia</title>
     <link href="${@environment.getProperty('root.url')}" rel="canonical"/>
@@ -97,7 +125,7 @@
         </section>
 
         <form id="signupForm" class="container px-4 needs-validation" action="#" method="post" th:action="@{/adduser}"
-              th:object="${user}">
+              th:object="${user}" novalidate>
             <div class="row gx-5 gy-3 py-3">
                 <div class="col">
                     <label class="form-label" for="firstName">Prénom</label>

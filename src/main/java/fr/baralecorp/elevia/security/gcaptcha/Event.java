@@ -1,11 +1,23 @@
 package fr.baralecorp.elevia.security.gcaptcha;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Objects;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Event {
     private String token;
     private String siteKey;
     private String expectedAction;
+
+    public Event() {
+    }
+
+    public Event(String token, String siteKey, String expectedAction) {
+        this.token = token;
+        this.siteKey = siteKey;
+        this.expectedAction = expectedAction;
+    }
 
     public String getToken() {
         return token;

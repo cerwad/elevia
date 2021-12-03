@@ -1,9 +1,12 @@
 package fr.baralecorp.elevia.controller;
 
+import com.google.common.base.Strings;
+import fr.baralecorp.elevia.controller.resolver.RecaptchaToken;
 import fr.baralecorp.elevia.controller.session.IAuthenticationFacade;
 import fr.baralecorp.elevia.controller.transferObj.UserDisplay;
 import fr.baralecorp.elevia.security.CaptchaService;
 import fr.baralecorp.elevia.service.UserService;
+import fr.baralecorp.elevia.service.data.AppData;
 import fr.baralecorp.elevia.service.util.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +35,9 @@ public class MainController extends BasicController {
     private CaptchaService captchaService;
 
     @Autowired
+    private AppData appData;
+
+    @Autowired
     private UserService userService;
 
     @RequestMapping(value = {"/index", "/"})
@@ -44,14 +50,14 @@ public class MainController extends BasicController {
 
     @GetMapping("/signup")
     public String showSignUpForm(@ModelAttribute("user") UserDisplay player, Model model) {
-        model.addAttribute("gre_siteKey", captchaService.getSiteKey());
+        model.addAttribute("gre_siteKey", appData.getCaptchaConfig().getSiteKey());
         String view = "signup";
         model.addAttribute("view", view);
         return view;
     }
 
     @PostMapping("/adduser")
-    public String addUser(@Valid @ModelAttribute("user") UserDisplay player, BindingResult result, Model model) {
+    public String addUser(@Valid @ModelAttribute("user") UserDisplay player, @RecaptchaToken String recaptchaToken, BindingResult result, Model model) {
         validateUser(player, result);
         if (result.hasErrors()) {
             model.addAttribute("user", player);
@@ -60,8 +66,14 @@ public class MainController extends BasicController {
             } else if (result.hasGlobalErrors()) {
                 logger.info(result.getErrorCount() + " Validation Error " + result.getGlobalError().getDefaultMessage());
             }
+            model.addAttribute("gre_siteKey", appData.getCaptchaConfig().getSiteKey());
             return "signup";
         }
+        logger.debug("Token: " + recaptchaToken + " Model: " + model.toString());
+        if (Strings.isNullOrEmpty(recaptchaToken)) {
+            throw new SecurityException("Did not receive captcha token");
+        }
+        captchaService.verifyUserAction("signup", recaptchaToken);
         logger.info("Creating new user: " + player.toString());
         userService.save(player);
         return "redirect:/index";

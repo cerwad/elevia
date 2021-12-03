@@ -1,5 +1,8 @@
 package fr.baralecorp.elevia.security.gcaptcha;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties
 public class Assesment {
     private TokenProperties tokenProperties;
     private Float score;

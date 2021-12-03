@@ -46,7 +46,7 @@ public class ModelInterceptor implements HandlerInterceptor {
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView)
             throws Exception {
         if (modelAndView != null) {
-            logger.info("Request intercepted env: " + appData.getEnv());
+            logger.debug(request.getRequestURI() + " Request intercepted env: " + appData.getEnv());
             ModelMap modelMap = modelAndView.getModelMap();
             addPlayerInfoToModel(modelMap);
             modelMap.addAttribute("envir", appData.getEnv().toString());

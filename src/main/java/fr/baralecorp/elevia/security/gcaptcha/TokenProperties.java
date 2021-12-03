@@ -1,5 +1,8 @@
 package fr.baralecorp.elevia.security.gcaptcha;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class TokenProperties {
     private Boolean valid;
     private String hostname;
