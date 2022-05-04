@@ -1,12 +1,12 @@
 package fr.baralecorp.elevia.controller;
 
 import com.google.common.base.Strings;
-import fr.baralecorp.elevia.controller.resolver.RecaptchaToken;
-import fr.baralecorp.elevia.controller.session.IAuthenticationFacade;
-import fr.baralecorp.elevia.controller.transferObj.UserDisplay;
-import fr.baralecorp.elevia.security.CaptchaService;
+import fr.baralecorp.elevia.config.app.AppData;
+import fr.baralecorp.elevia.config.security.controller.resolver.RecaptchaToken;
+import fr.baralecorp.elevia.config.security.controller.session.IAuthenticationFacade;
+import fr.baralecorp.elevia.config.security.gcaptcha.service.CaptchaService;
+import fr.baralecorp.elevia.controller.dto.UserDisplay;
 import fr.baralecorp.elevia.service.UserService;
-import fr.baralecorp.elevia.service.data.AppData;
 import fr.baralecorp.elevia.service.util.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

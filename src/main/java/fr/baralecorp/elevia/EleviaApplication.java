@@ -2,8 +2,8 @@ package fr.baralecorp.elevia;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.LoggerContext;
-import fr.baralecorp.elevia.dao.DatabaseSetup;
-import fr.baralecorp.elevia.service.data.AppData;
+import fr.baralecorp.elevia.config.app.AppData;
+import fr.baralecorp.elevia.config.data.dbsetup.DatabaseSetup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

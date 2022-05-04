@@ -1,6 +1,6 @@
 package fr.baralecorp.elevia.controller;
 
-import fr.baralecorp.elevia.controller.session.IAuthenticationFacade;
+import fr.baralecorp.elevia.config.security.controller.session.IAuthenticationFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

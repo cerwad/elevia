@@ -1,8 +1,8 @@
 package fr.baralecorp.elevia.controller;
 
-import fr.baralecorp.elevia.controller.session.IAuthenticationFacade;
-import fr.baralecorp.elevia.controller.transferObj.DayScoreDisplay;
-import fr.baralecorp.elevia.controller.transferObj.ScoreDisplay;
+import fr.baralecorp.elevia.config.security.controller.session.IAuthenticationFacade;
+import fr.baralecorp.elevia.controller.dto.DayScoreDisplay;
+import fr.baralecorp.elevia.controller.dto.ScoreDisplay;
 import fr.baralecorp.elevia.domain.ExerciseType;
 import fr.baralecorp.elevia.domain.Score;
 import fr.baralecorp.elevia.service.BestScoresOfDayService;
