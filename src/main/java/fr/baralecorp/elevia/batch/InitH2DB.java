@@ -5,6 +5,8 @@ import fr.baralecorp.elevia.dao.UserRepository;
 import fr.baralecorp.elevia.domain.ExerciseType;
 import fr.baralecorp.elevia.domain.Result;
 import fr.baralecorp.elevia.domain.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -18,6 +20,7 @@ import java.util.Optional;
 
 @Component
 public class InitH2DB {
+    Logger logger = LoggerFactory.getLogger(InitH2DB.class);
 
     @Autowired
     private UserRepository userRepository;
@@ -161,5 +164,36 @@ public class InitH2DB {
         }
         resultRepository.saveAll(results);
 
+    }
+
+    public void testSaveInCascade() {
+        User ant = new User();
+        ant.setBirthDate(LocalDate.of(1986, 9, 17));
+        ant.setEmail("antoine@gmail.com");
+        ant.setFirstName("Antoine");
+        ant.setName("MAZERIN");
+        ant.setHandle("antoine");
+        ant.setPassword(passwordHasher.encode("antoine"));
+
+        List<Result> results = new ArrayList<>();
+        Result res1 = new Result();
+        res1.setDay(LocalDateTime.of(2021, 5, 28, 15, 0));
+        res1.setExercise(ExerciseType.MULTIPLICATION);
+        res1.setNbErrors((short) 0);
+        res1.setTime(Duration.ofMillis(35800));
+        res1.setUser(ant);
+        results.add(res1);
+
+        Result res2 = new Result();
+        res2.setDay(LocalDateTime.of(2021, 6, 1, 14, 30));
+        res2.setExercise(ExerciseType.MULTIPLICATION);
+        res2.setNbErrors((short) 0);
+        res2.setTime(Duration.ofSeconds(41));
+        res2.setUser(ant);
+        results.add(res2);
+
+        ant.setResults(results);
+        User antSaved = userRepository.save(ant);
+        logger.info("{} results have been saved for Antoine", antSaved.getResults().size());
     }
 }
