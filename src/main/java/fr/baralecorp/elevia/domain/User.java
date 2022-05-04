@@ -44,7 +44,7 @@ public class User implements UserDetails {
     @JoinColumn(name = "parentId")
     private User parent;
 
-    @OneToMany(targetEntity = Result.class, mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = Result.class, mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Result> results = new ArrayList<>();
 
     @OneToMany(targetEntity = User.class, mappedBy = "parent", fetch = FetchType.LAZY)
@@ -168,6 +168,10 @@ public class User implements UserDetails {
 
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public void setResults(List<Result> results) {
+        this.results = results;
     }
 
     @Override

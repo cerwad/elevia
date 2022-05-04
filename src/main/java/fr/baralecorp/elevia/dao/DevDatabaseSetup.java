@@ -25,6 +25,7 @@ public class DevDatabaseSetup implements DatabaseSetup {
         logger.info("Initializing in Memory DB H2");
         initH2DB.addUsers();
         initH2DB.addResults();
+        initH2DB.testSaveInCascade();
         bestScoresService.generateScoresFromResults();
     }
 }
