@@ -1,8 +1,8 @@
 package fr.baralecorp.elevia.controller;
 
-import fr.baralecorp.elevia.controller.session.IAuthenticationFacade;
-import fr.baralecorp.elevia.security.CaptchaService;
-import fr.baralecorp.elevia.service.data.AppData;
+import fr.baralecorp.elevia.config.app.AppData;
+import fr.baralecorp.elevia.config.security.controller.session.IAuthenticationFacade;
+import fr.baralecorp.elevia.config.security.gcaptcha.service.CaptchaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

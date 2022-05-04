@@ -1,6 +1,6 @@
 package fr.baralecorp.elevia.domain;
 
-import fr.baralecorp.elevia.controller.transferObj.ExerciseResults;
+import fr.baralecorp.elevia.controller.dto.ExerciseResults;
 
 import javax.persistence.*;
 import java.time.Duration;

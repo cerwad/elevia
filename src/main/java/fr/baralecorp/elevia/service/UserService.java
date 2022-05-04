@@ -1,6 +1,6 @@
 package fr.baralecorp.elevia.service;
 
-import fr.baralecorp.elevia.controller.transferObj.UserDisplay;
+import fr.baralecorp.elevia.controller.dto.UserDisplay;
 import fr.baralecorp.elevia.dao.UserRepository;
 import fr.baralecorp.elevia.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;

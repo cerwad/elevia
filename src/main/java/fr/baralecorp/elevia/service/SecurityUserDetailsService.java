@@ -1,8 +1,8 @@
 package fr.baralecorp.elevia.service;
 
+import fr.baralecorp.elevia.config.security.gcaptcha.service.LoginAttemptService;
 import fr.baralecorp.elevia.dao.UserRepository;
 import fr.baralecorp.elevia.domain.User;
-import fr.baralecorp.elevia.security.LoginAttemptService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

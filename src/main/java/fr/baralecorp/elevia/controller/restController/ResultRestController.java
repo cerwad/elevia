@@ -1,8 +1,8 @@
 package fr.baralecorp.elevia.controller.restController;
 
+import fr.baralecorp.elevia.config.security.controller.session.IAuthenticationFacade;
 import fr.baralecorp.elevia.controller.BasicController;
-import fr.baralecorp.elevia.controller.session.IAuthenticationFacade;
-import fr.baralecorp.elevia.controller.transferObj.ExerciseResults;
+import fr.baralecorp.elevia.controller.dto.ExerciseResults;
 import fr.baralecorp.elevia.dao.ResultRepository;
 import fr.baralecorp.elevia.domain.Result;
 import fr.baralecorp.elevia.service.BestScoresService;
