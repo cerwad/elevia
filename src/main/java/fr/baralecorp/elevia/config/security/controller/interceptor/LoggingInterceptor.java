@@ -1,4 +1,4 @@
-package fr.baralecorp.elevia.service;
+package fr.baralecorp.elevia.config.security.controller.interceptor;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -6,6 +6,7 @@ import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
+import org.springframework.lang.NonNull;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,10 +18,20 @@ public class LoggingInterceptor implements ClientHttpRequestInterceptor {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(LoggingInterceptor.class);
 
+    /**
+     * Logging interceptor to log requests
+     *
+     * @param req     request
+     * @param reqBody nody
+     * @param ex      requestExec
+     * @return response
+     * @throws IOException if an io problem happens
+     */
     @Override
-    public ClientHttpResponse intercept(
-            HttpRequest req, byte[] reqBody, ClientHttpRequestExecution ex) throws IOException {
-        LOGGER.debug("Request headers: {}", req.getHeaders().toString());
+    public @NonNull
+    ClientHttpResponse intercept(
+            HttpRequest req, @NonNull byte[] reqBody, ClientHttpRequestExecution ex) throws IOException {
+        LOGGER.debug("Request headers: {}", req.getHeaders());
         LOGGER.debug("Request body: {}", new String(reqBody, StandardCharsets.UTF_8));
         ClientHttpResponse response = ex.execute(req, reqBody);
         InputStreamReader isr = new InputStreamReader(

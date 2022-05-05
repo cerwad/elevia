@@ -8,6 +8,16 @@ public class Operation {
     private Operator operator;
     private Double result;
 
+    public Operation() {
+
+    }
+
+    public Operation(Long lOperand, Long rOperand, Operator operator) {
+        this.lOperand = lOperand;
+        this.rOperand = rOperand;
+        this.operator = operator;
+    }
+
     public Operation(Long lOperand, Long rOperand, Operator operator, Double result) {
         this.lOperand = lOperand;
         this.rOperand = rOperand;

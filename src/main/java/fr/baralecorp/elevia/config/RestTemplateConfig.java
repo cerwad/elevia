@@ -1,6 +1,6 @@
 package fr.baralecorp.elevia.config;
 
-import fr.baralecorp.elevia.service.LoggingInterceptor;
+import fr.baralecorp.elevia.config.security.controller.interceptor.LoggingInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.client.RestTemplateBuilder;
